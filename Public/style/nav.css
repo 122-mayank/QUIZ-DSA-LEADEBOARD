@@ -1,0 +1,65 @@
+/* Navbar */
+.nav_bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 18px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  z-index: 1000;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  backdrop-filter: blur(8px); /* subtle blur for content behind navbar */
+  /* background: linear-gradient(90deg, #C562AF, #B33791); consistent beautiful gradient */
+}
+
+/* Brand */
+.left_quiz .brand {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.left_quiz .dot {
+  color: #ec4899;
+}
+
+/* Links */
+.nav_links {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+.nav_links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.nav_links li a:hover {
+  color: #ec4899;
+  transform: scale(1.05);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .nav_bar {
+    flex-direction: column;
+    padding: 12px 25px;
+    gap: 10px;
+  }
+
+  .nav_links {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+}

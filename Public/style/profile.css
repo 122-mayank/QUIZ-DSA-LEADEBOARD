@@ -1,0 +1,183 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Animated Gradient Background */
+body.main-body {
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #cc7fb6, #ac84d8, #cfa6a6, #f3bdb4);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  padding: 2rem 1rem;
+}
+
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+.profile-container {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding-top: 80px; /* space for navbar */
+}
+
+/* Page Title */
+.page-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #6b46c1;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+/* Grid Layout */
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media(min-width: 768px) {
+  .grid-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Profile Card */
+.profile-card {
+  background: linear-gradient(135deg, #e9d5ff, #fce7f3, #ffffff);
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.profile-content {
+  text-align: center;
+}
+
+.avatar {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 9999px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-bottom: 1rem;
+}
+
+.username {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.user-info,
+.quiz-info {
+  color: #6b46c1;
+  margin-top: 0.5rem;
+}
+
+.bold { font-weight: bold; }
+
+/* Progress Circle */
+.progress-wrapper {
+  width: 10rem;
+  height: 10rem;
+  margin: 1rem auto;
+  position: relative;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: bold;
+  color: #6b46c1;
+}
+
+/* Leaderboard */
+.leaderboard {
+  border: 2px solid #d8b4fe;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  background-color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leaderboard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.leaderboard-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.leaderboard-list li {
+  background-color: #f3e8ff;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.leaderboard-list li:hover {
+  background: linear-gradient(to right, #fce7f3, #e9d5ff);
+}
+
+.score {
+  font-weight: bold;
+  color: #6b46c1;
+}
+
+/* Buttons */
+.btn-container {
+  text-align: center;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.btn.home { background: linear-gradient(to right, #805ad5, #6b46c1); }
+.btn.home:hover { opacity: 0.9; transform: translateY(-3px); }
+
+.btn.categories { background: linear-gradient(to right, #ec4899, #db2777); }
+.btn.categories:hover { opacity: 0.9; transform: translateY(-3px); }
+
+/* Responsive */
+@media(max-width: 768px) {
+  .page-title { font-size: 2rem; }
+  .progress-wrapper { width: 8rem; height: 8rem; }
+  .progress-text { font-size: 1.5rem; }
+  .grid-wrapper { gap: 1rem; }
+}

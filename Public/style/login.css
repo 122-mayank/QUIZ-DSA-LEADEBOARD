@@ -1,0 +1,136 @@
+/* 🌐 Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* 🧭 Page Background */
+body {
+  background: linear-gradient(to right, #6b21a8, #ec4899, #f9a8d4);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🚀 Adjust for fixed navbar */
+.login-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding-top: 90px; /* space for fixed navbar */
+  padding-bottom: 40px;
+}
+
+/* 📝 Login Container */
+.login-container {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+/* ✨ Heading */
+.heading {
+  font-size: 1.8rem;
+  color: #6b21a8;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.subheading {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
+/* 🖊 Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.login-form label {
+  text-align: left;
+  font-weight: 500;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.login-form input {
+  height: 45px;
+  padding: 0 15px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  outline: none;
+  transition: 0.3s;
+  font-size: 1rem;
+}
+
+.login-form input:focus {
+  border-color: #ec4899;
+  box-shadow: 0 0 0 1px #ec4899;
+}
+
+/* 🔥 Login Button */
+.login-btn {
+  height: 45px;
+  background: linear-gradient(to right, #ec4899, #8b5cf6);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* ✨ Signup Text */
+.signup-text {
+  margin-top: 20px;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.signup-text a {
+  color: #ec4899;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.signup-text a:hover {
+  text-decoration: underline;
+}
+
+/* 📱 Mobile Responsiveness */
+@media (max-width: 500px) {
+  .login-container {
+    padding: 30px 20px;
+    width: 90%;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+  }
+
+  .subheading {
+    font-size: 0.9rem;
+  }
+
+  .login-btn {
+    font-size: 0.95rem;
+  }
+}

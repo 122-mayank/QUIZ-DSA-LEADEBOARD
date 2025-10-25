@@ -1,0 +1,109 @@
+/* 🌟 Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Body & Background */
+.category-body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fbc2eb, #a18cd1); /* Pink to Purple gradient */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 120px; /* Updated: enough space for fixed navbar */
+    padding-bottom: 50px;
+}
+
+/* Page Header */
+.page-header .heading {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #4c1d95;
+    margin-bottom: 40px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+}
+
+/* Grid Container */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    width: 80%;
+    max-width: 1200px;
+    margin-left:150px;
+}
+
+/* Grid Items */
+.grid-item {
+    background: linear-gradient(145deg, #ffffff, #f3f3f3);
+    border-radius: 15px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #6d28d9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.dp{
+     padding-left: 40px;
+}
+
+.grid-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+    background: linear-gradient(145deg, #f0e5ff, #e0d0ff);
+}
+
+/* Home Button */
+.btn-container {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: linear-gradient(to right, #9333ea, #d946ef);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transform: translateY(-3px);
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 1024px) {
+    .page-header .heading {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .category-body {
+        padding-top: 150px; /* extra spacing for mobile navbar */
+    }
+    .page-header .heading {
+        font-size: 2rem;
+    }
+    .grid-item {
+        height: 70px;
+        font-size: 1rem;
+    }
+    .btn {
+        width: 80%;
+    }
+}
