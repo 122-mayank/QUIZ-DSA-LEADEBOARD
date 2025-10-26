@@ -1,1 +1,8 @@
-"script/firebase-service.json" 
+node_modules/
+.env
+script/firebase-service.json
+firebase-service.json
+*.key
+*.pem
+.DS_Store
+*.log
