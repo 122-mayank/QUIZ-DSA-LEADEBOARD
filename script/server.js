@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const db = require('./firebase');
 const app = express();
 
 app.set('view engine','ejs');
@@ -32,7 +33,35 @@ app.get('/category',(req,res)=>{
 
 app.get('/profile',(req,res)=>{
      res.render('profile');
-})
+});
+
+app.post('/submit-sign-up', async(req,res)=>{
+
+    const{FullName , Email , Password} = req.body;
+
+    if(!FullName || !Email || !Password){
+         return res.send("Please fill all the fields correctly");
+    }
+
+
+    try{
+        await db.ref("users").child(Email.replace('.',',')).set({
+
+            name :FullName,
+            email:Email,
+            password:Password
+        });
+
+        console.log("Users added to Realtime Database DB: ", FullName);
+        res.redirect('/login');
+
+    }catch(error){
+        console.error("Firebase error:", error);
+        res.send("Error saving data. Try again.");
+    }
+
+
+});
 
 
 
