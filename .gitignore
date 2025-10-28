@@ -1,4 +1,3 @@
-# Ignore Firebase credentials
-Public/script/firebase-service.json
+
 *.json
 .env
