@@ -1,4 +1,4 @@
-node_modules/
+# Ignore Firebase credentials
+Public/script/firebase-service.json
+*.json
 .env
-script/firebase-service.json
-*.log
