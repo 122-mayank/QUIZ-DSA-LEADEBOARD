@@ -1,11 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Array & Set Quiz</title>
+  <link rel="stylesheet" href="/style/nav.css">
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #74ABE2, #5563DE);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Add spacing to push content below fixed navbar */
+    .content-wrapper {
+      margin-top: 100px; /* Adjust if your navbar height changes */
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .quiz-container {
+      background: #ffffff15;
+      backdrop-filter: blur(15px);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 800px;
+      padding: 30px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #fff;
+      font-size: 2rem;
+    }
+
+    .question {
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .question:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .question h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: #f3f3f3;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      accent-color: #00ffbf;
+      margin-right: 8px;
+    }
+
+    button {
+      background: #00ffc8;
+      border: none;
+      color: #333;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 20px auto 0;
+      display: block;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #00bfa5;
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    @media screen and (max-width: 600px) {
+      .quiz-container {
+        padding: 20px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      .question h3 {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-      
+
+  <!-- Navbar -->
+  <%- include('partials/nav') %>
+
+  <!-- Content below navbar -->
+  <div class="content-wrapper">
+    <div class="quiz-container">
+      <h1>Array & Set Quiz</h1>
+
+      <form action="/submit-array-quiz" method="POST" id="arrayQuizForm">
+
+        <% const questions = [
+          {
+            q: "1. What is the time complexity of inserting an element at the end of an array (no resizing)?",
+            opts: ["O(1)", "O(n)", "O(log n)", "O(n log n)"]
+          },
+          {
+            q: "2. Which data structure automatically removes duplicate elements?",
+            opts: ["Vector", "Array", "Set", "Map"]
+          },
+          {
+            q: "3. What will be the output of merging two sorted arrays of size n and m?",
+            opts: ["O(1)", "O(n+m)", "O(n*m)", "O(log(n+m))"]
+          },
+          {
+            q: "4. What does the 'set' in C++ use internally for storage?",
+            opts: ["Array", "Hash Table", "Balanced Binary Search Tree", "Queue"]
+          },
+          {
+            q: "5. Which method removes all elements from a Set in JavaScript?",
+            opts: ["clear()", "removeAll()", "deleteAll()", "flush()"]
+          },
+          {
+            q: "6. Which of these allows duplicate values?",
+            opts: ["Set", "Unordered Set", "Array", "All of these"]
+          },
+          {
+            q: "7. What is the time complexity of searching an element in an unordered_set in C++ on average?",
+            opts: ["O(1)", "O(log n)", "O(n)", "O(n log n)"]
+          },
+          {
+            q: "8. What is the index of the first element in an array?",
+            opts: ["1", "0", "-1", "Depends on language"]
+          },
+          {
+            q: "9. How can we remove duplicates from an array efficiently?",
+            opts: ["Using sort()", "Using Set", "Using vector::erase()", "Using pop_back()"]
+          },
+          {
+            q: "10. What happens if we insert the same element twice in a set?",
+            opts: ["Both will be stored", "It throws an error", "Duplicates are ignored", "It overwrites old value"]
+          },
+          {
+            q: "11. Which operation is not possible in a fixed-size array?",
+            opts: ["Traversal", "Deletion", "Updation", "Insertion at end"]
+          },
+          {
+            q: "12. What does the size() function of a Set return?",
+            opts: ["Capacity", "Number of unique elements", "Total insertions", "None of these"]
+          },
+          {
+            q: "13. If arr = [1, 2, 3, 4], what is arr.length in JavaScript?",
+            opts: ["3", "4", "5", "Undefined"]
+          },
+          {
+            q: "14. Which of the following can be used to find union of two sets in C++?",
+            opts: ["insert()", "merge()", "combine()", "join()"]
+          },
+          {
+            q: "15. What is the space complexity of storing n elements in a set?",
+            opts: ["O(1)", "O(log n)", "O(n)", "O(n^2)"]
+          }
+        ]; %>
+
+        <% const arr=[] %>
+
+        <% questions.forEach((item, i) => { %>
+          <div class="question">
+            <h3><%= item.q %></h3>
+            <% item.opts.forEach((opt, j) => { %>
+              <label>
+                <input type="radio" name="q<%= i+1 %>" value="<%= opt %>" class="q<%= i+1%>"  required>
+                <%= opt %>
+              </label>
+            <% }) %>
+          </div>
+        <% }) %>
+
+        <button type="submit" class="btn-quiz">Submit Quiz</button>
+      </form>
+    </div>
+  </div>
+ <script src="/script/array_quiz.js"></script>
 </body>
 </html>

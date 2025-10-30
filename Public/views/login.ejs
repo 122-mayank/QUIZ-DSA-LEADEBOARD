@@ -14,16 +14,16 @@
 
   <main class="login-main">
 
-    <div class="login-container">
+    <div class="login-container" >
       <h1 class="heading">DSA Arena Quiz</h1>
       <p class="subheading">Login to challenge your DSA skills!</p>
 
-      <form class="login-form">
+      <form action ="/submit_login" class="login-form" method="POST">
         <label for="email">Email</label>
-        <input type="email" id="email" placeholder="you@example.com" required>
+        <input type="email" id="email" name ="Email" placeholder="you@example.com" required>
 
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="••••••••" required>
+        <input type="password" id="password" name ="Password"placeholder="••••••••" required>
 
         <button type="submit" class="login-btn">Login</button>
       </form>
@@ -34,6 +34,8 @@
     </div>
 
   </main>
+
+  <script src="/script/login.js"></script>
 
 </body>
 </html>

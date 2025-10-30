@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
 const db = require('./firebase');
+const { messaging } = require('firebase-admin');
+// const { firestore } = require('firebase-admin');
+// const { measureMemory } = require('vm');
 const app = express();
 require("dotenv").config();
 
@@ -69,6 +72,57 @@ app.post('/submit-sign-up', async (req, res) => {
     res.json({ success: false, message: "Error saving data. Try again." });
   }
 });
+app.post('/submit_login', async (req, res) => {
+  console.log(req.body);
+
+  const { email, password } = req.body;
+
+  try {
+    const EmailKey = email.replace('.', ',');
+    const userRef = db.ref("users").child(EmailKey);
+
+    const snap = await userRef.once("value");
+
+    if (!snap.exists()) {
+      return res.json({ success: false, message: 'No user exists! Please sign up first.' });
+    }
+
+    const userData = snap.val();  // get user's data
+
+    // 🔍 Compare entered password with stored password
+    if (userData.password === password && userData.email === email ) {
+      return res.json({ success: true, message: 'Successfully logged in!', name:userData.name });
+    } else {
+      return res.json({ success: false, message: 'Incorrect password. Please try again.' });
+    }
+
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, message: 'Error during login process!' });
+  }
+});
+
+
+app.get('/array_quiz',(req,res)=>{
+         res.render('array_quiz');
+});
+
+app.post('/submit-array-quiz',async(req,res)=>{
+try{
+   const{score} = req.body;
+
+   console.log("Score: ",score);
+
+   res.status(200).json({success:true , score});
+   return;
+}
+catch (error) {
+    console.error('Server Error:', error);
+    res.status(500).json({ message: 'Server error while submitting quiz' });
+  }
+
+});
+
 
 const PORT = 3001;
 app.listen(PORT , ()=>{

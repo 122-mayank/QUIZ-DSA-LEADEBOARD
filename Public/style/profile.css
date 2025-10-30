@@ -168,8 +168,8 @@ body.main-body {
   transition: all 0.3s ease;
 }
 
-.btn.home { background: linear-gradient(to right, #805ad5, #6b46c1); }
-.btn.home:hover { opacity: 0.9; transform: translateY(-3px); }
+.btn.logout { background: linear-gradient(to right, #805ad5, #6b46c1); }
+.btn.logout:hover { opacity: 0.9; transform: translateY(-3px); }
 
 .btn.categories { background: linear-gradient(to right, #ec4899, #db2777); }
 .btn.categories:hover { opacity: 0.9; transform: translateY(-3px); }
