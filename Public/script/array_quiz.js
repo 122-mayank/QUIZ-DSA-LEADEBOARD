@@ -32,6 +32,7 @@ console.log("Collected Quiz Data:", quizdata);
   };
 
 let score = 0;
+let totalQuestions = 15;
 // const useranswer =[];
 for(let key in correctAnswers){
 
@@ -42,6 +43,8 @@ for(let key in correctAnswers){
 }
 
 console.log(`the score of the user is ${score}`);
+const name = localStorage.getItem("loggedUser");
+console.log(name);
 
 try{
 
