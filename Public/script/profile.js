@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     if(username){
          document.querySelector('.username').textContent=username;
          document.querySelector('#high-score').textContent=`${score}/15`;
+        //  document.querySelector('#quiz-taken').textContent=
     }
     else{
         document.querySelector('.username').textContent='Guest User';

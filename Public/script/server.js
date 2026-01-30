@@ -2,23 +2,18 @@ const express = require('express');
 const path = require('path');
 const db = require('./firebase');
 const { messaging } = require('firebase-admin');
-// const { firestore } = require('firebase-admin');
-// const { measureMemory } = require('vm');
 const app = express();
+
 require("dotenv").config();
 
 console.log(__dirname);
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'../','views'));
 
-
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
-
 app.use(express.static(path.join(__dirname,'../')));
-
-
 
 app.get('/',(req,res)=>{
       res.render('index');
@@ -72,6 +67,7 @@ app.post('/submit-sign-up', async (req, res) => {
     res.json({ success: false, message: "Error saving data. Try again." });
   }
 });
+
 app.post('/submit_login', async (req, res) => {
   console.log(req.body);
 
@@ -107,6 +103,10 @@ app.get('/array_quiz',(req,res)=>{
          res.render('array_quiz');
 });
 
+app.get('/linkedlist_quiz' , (req, res) =>{
+    res.render('linkedlist_quiz');
+});
+
 app.post('/submit-array-quiz',async(req,res)=>{
 try{
    const{score} = req.body;
@@ -122,7 +122,6 @@ catch (error) {
   }
 
 });
-
 
 const PORT = 3001;
 app.listen(PORT , ()=>{
