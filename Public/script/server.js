@@ -151,7 +151,7 @@ app.get('/linkedlist_quiz' , (req, res) =>{
 app.post('/submit-array-quiz', async (req, res) => {
   try {
 
-    if (!req.session.userId) {
+    if (!req.session.user) {
     return res.json({
       success: true,
       guest: true
@@ -177,7 +177,7 @@ app.post('/submit-array-quiz', async (req, res) => {
       totalMarks: prevMarks + 15
     });
 
-    res.json({ success: true });
+    res.json({ success: true , guest: false });
 
   } catch (error) {
     console.error(error);
