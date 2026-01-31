@@ -1,76 +1,91 @@
-document.querySelector('.btn-quiz').addEventListener('click',async(e)=>{
- e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
 
-const form = document.querySelector('#arrayQuizForm');
+  const form = document.querySelector('#arrayQuizForm');
 
-const formData = new FormData(form);
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-const quizdata={};
-formData.forEach((value,key)=>{
-     quizdata[key]= value;
-});
+    const formData = new FormData(form);
 
-console.log("Collected Quiz Data:", quizdata);
-
-
-  const correctAnswers = {
-    q1: 'O(1)',
-    q2: 'Set',
-    q3: 'O(n + m)',
-    q4: 'Balanced Binary Search Tree (Red-Black Tree)',
-    q5: 'clear()',
-    q6: 'Array',
-    q7: 'O(1)',
-    q8: '0',
-    q9: 'Using Set',
-    q10: 'Duplicates are ignored',
-    q11: 'Insertion at end',
-    q12: 'Number of unique elements',
-    q13: '4',
-    q14: 'insert()',
-    q15: 'O(n)'
-  };
-
-let score = 0;
-let totalQuestions = 15;
-// const useranswer =[];
-for(let key in correctAnswers){
-
-     const userAnswer = quizdata[key] || "Not answered";
-    const correct = correctAnswers[key];
-    const isCorrect = userAnswer === correct;
-    if (isCorrect) score++;
-}
-
-console.log(`the score of the user is ${score}`);
-const name = localStorage.getItem("loggedUser");
-console.log(name);
-
-try{
-
-    const response = await fetch("/submit-array-quiz",{
-           method:"POST",
-           headers:{"Content-Type":"application/json"},
-           body:JSON.stringify({score})
+    const quizData = {};
+    formData.forEach((value, key) => {
+      quizData[key] = value;
     });
 
-    const result = await response.json();
-    if(result.success){
-         alert('Your quiz is submitted Succesfully!');
-         localStorage.setItem("score",result.score);
-         window.location.href = '/profile';
-         return;
+    console.log("Collected Quiz Data:", quizData);
+
+
+    // ✅ correct answers
+    const correctAnswers = {
+      q1: 'O(1)',
+      q2: 'Set',
+      q3: 'O(n + m)',
+      q4: 'Balanced Binary Search Tree (Red-Black Tree)',
+      q5: 'clear()',
+      q6: 'Array',
+      q7: 'O(1)',
+      q8: '0',
+      q9: 'Using Set',
+      q10: 'Duplicates are ignored',
+      q11: 'Insertion at end',
+      q12: 'Number of unique elements',
+      q13: '4',
+      q14: 'insert()',
+      q15: 'O(n)'
+    };
+
+    let score = 0;
+
+    // ✅ auto total count
+    const totalQuestions = Object.keys(correctAnswers).length;
+
+    // ✅ score calculation
+    for (let key in correctAnswers) {
+      if (quizData[key] === correctAnswers[key]) {
+        score++;
+      }
     }
-    else{
+
+    const percentage = Math.round((score / totalQuestions) * 100);
+
+    console.log(`Score: ${score}/${totalQuestions}`);
+    console.log(`Percentage: ${percentage}%`);
+
+
+    try {
+      const response = await fetch("/submit-array-quiz", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          score,
+          totalQuestions,
+          percentage
+        })
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+
+  // 🟡 Guest user
+  if (result.guest) {
+    alert(`Guest Mode 🎯\nYour Score: ${score}/${totalQuestions}`);
+    return;
+  }
+
+  // 🟢 Logged-in user
+  alert(`Quiz submitted! Your score: ${score}/${totalQuestions}`);
+  window.location.href = '/profile';
+}
+
+      else {
         alert('Error submitting quiz');
-        return;
+      }
+
+    } catch (error) {
+      console.error("Error:", error);
     }
 
-}
-catch(eror){
-        console.log("Error: ",error);
-}
-
-
+  });
 
 });

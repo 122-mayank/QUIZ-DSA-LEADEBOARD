@@ -20,17 +20,20 @@
       <!-- Profile Card -->
       <div class="profile-card">
         <div class="profile-content">
-          <h2 class="username"></h2>
-
+      <h2 class="username"><%= user.name %></h2>
 
           <!-- Circle Percentage for Quizzes -->
           <div class="progress-wrapper">
             <canvas id="progressCircle" width="200" height="200"></canvas>
-            <p class="progress-text">0%</p>
+            <p class="progress-text">
+               <%= user.totalMarks ? Math.round((user.totalScore / user.totalMarks) * 100) : 0 %>%
+            </p>
+
           </div>
 
-          <p class="quiz-info" >Total Quizzes Taken: <span class="bold"id="quiz-taken" >1</span></p>
-          <p class="quiz-info" >Score: <span class="bold" id="high-score">0/0</span></p>
+          <span class="bold" id="quiz-taken">Total Quizzes Taken : <%= user.totalQuiz || 0 %></span><br>
+         <span class="bold" id="high-score">Highest Score : <%= user.totalScore || 0 %>/<%= user.totalMarks || 0 %></span>
+
         </div>
       </div>
 
@@ -42,7 +45,7 @@
     </div>
 
     <div class="btn-container">
-      <a href="/" class="btn logout">Log Out</a>
+      <a href="/logout" class="btn logout">Log Out</a>
       <a href="/category" class="btn categories">Categories</a>
     </div>
   </div>

@@ -19,8 +19,6 @@ document.querySelector('.login-btn').addEventListener('click', async (event) => 
     const result = await response.json();
 
     if (result.success) {
-      alert(result.message);
-      localStorage.setItem("loggedUser",result.name);
       window.location.href = '/';
     } else {
       alert(result.message);

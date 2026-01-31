@@ -2,7 +2,16 @@ const express = require('express');
 const path = require('path');
 const db = require('./firebase');
 const { messaging } = require('firebase-admin');
+const session = require('express-session');
 const app = express();
+
+app.use(session({
+  secret: "mysecretkey",
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false }
+}));
+
 
 require("dotenv").config();
 
@@ -31,9 +40,32 @@ app.get('/category',(req,res)=>{
      res.render('category');
 });
 
-app.get('/profile',(req,res)=>{
-     res.render('profile');
+app.get('/profile', async (req, res) => {
+
+  if (!req.session.user) {
+    return res.redirect('/login');
+  }
+
+  const emailKey = req.session.user.email.replace('.', ',');
+  const userRef = db.ref("users").child(emailKey);
+
+  const snap = await userRef.once("value");
+  const userData = snap.val();
+
+  res.render('profile', {
+    user: userData
+  });
+
 });
+
+
+app.get('/logout',(req,res)=>{
+   req.session.destroy(()=>{
+      res.redirect('/login');
+   });
+});
+
+
 
 app.post('/submit-sign-up', async (req, res) => {
   const { FullName, Email, Password } = req.body;
@@ -87,8 +119,15 @@ app.post('/submit_login', async (req, res) => {
 
     // 🔍 Compare entered password with stored password
     if (userData.password === password && userData.email === email ) {
-      return res.json({ success: true, message: 'Successfully logged in!', name:userData.name });
-    } else {
+
+            req.session.user = {
+              name: userData.name,
+              email: userData.email
+            };
+
+            return res.json({ success: true });
+         }
+    else {
       return res.json({ success: false, message: 'Incorrect password. Please try again.' });
     }
 
@@ -107,20 +146,43 @@ app.get('/linkedlist_quiz' , (req, res) =>{
     res.render('linkedlist_quiz');
 });
 
-app.post('/submit-array-quiz',async(req,res)=>{
-try{
-   const{score} = req.body;
 
-   console.log("Score: ",score);
 
-   res.status(200).json({success:true , score});
-   return;
-}
-catch (error) {
-    console.error('Server Error:', error);
-    res.status(500).json({ message: 'Server error while submitting quiz' });
+app.post('/submit-array-quiz', async (req, res) => {
+  try {
+
+    if (!req.session.userId) {
+    return res.json({
+      success: true,
+      guest: true
+    });
   }
 
+
+    const { score } = req.body;
+
+    const emailKey = req.session.user.email.replace('.', ',');
+    const userRef = db.ref("users").child(emailKey);
+
+    const snap = await userRef.once("value");
+    const userData = snap.val();
+
+    const prevQuiz = userData.totalQuiz || 0;
+    const prevScore = userData.totalScore || 0;
+    const prevMarks = userData.totalMarks || 0;
+
+    await userRef.update({
+      totalQuiz: prevQuiz + 1,
+      totalScore: prevScore + score,
+      totalMarks: prevMarks + 15
+    });
+
+    res.json({ success: true });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false });
+  }
 });
 
 const PORT = 3001;
