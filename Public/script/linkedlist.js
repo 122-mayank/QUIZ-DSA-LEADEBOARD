@@ -26,7 +26,7 @@ document.querySelector('.btn2-quiz').addEventListener("click",async(e)=>{
          q9: 'Implement Binary Search',
          q10: 'O(n)',
          q11: 'O(n)',
-         q12: 'Floyd Cycle Detection',
+         q12: 'Flyod Cycle Detection',
          q13: 'O(n)',
          q14: 'No random access',
          q15: 'Doubly'
@@ -34,24 +34,52 @@ document.querySelector('.btn2-quiz').addEventListener("click",async(e)=>{
     };
 
     let score = 0;
-    let totalquestion = 15;
+
+    const totalQuestions = Object.keys(correctAnswers).length;
+
 
     for(let key in correctAnswers){
 
-        const userAnswer = quizdata[key] || "Not answered";
-        const correct = correctAnswers[key];
-        const isCorrect = userAnswer === correct;
-
-        if(isCorrect)
-            score = score + 1;
+       if(quizdata[key] == correctAnswers[key]){
+        score++;
+       }
 
     }
 
-    console.log(`the score of the user is ${score}`);
-    
+    const percentage = Math.round((score / totalQuestions) * 100 );
+    console.log(`Score: ${score}/${totalQuestions}`);
+    console.log(`Percentage: ${percentage}%`);
 
 
+    try{
+
+         const response = await fetch("/submit-linked-list-quiz" , {
+
+             method :"POST",
+             headers :{"Content-Type" : "application/json"},
+             body : JSON.stringify({score , totalQuestions , percentage})
+
+         });
 
 
+         const result = await response.json();
+
+         if(result.success){
+
+              if(result.guest){
+                 alert(`Guest Mode 🎯\nYour Score: ${score}/${totalQuestions}`);
+                  return;
+              }
+
+              alert(`Quiz submitted! Your score: ${score}/${totalQuestions}`);
+              window.location.href = '/profile';
+         }
+     else {
+        alert('Error submitting quiz');
+      }
+
+    }catch(error){
+        console.error("Error:", error);
+    }
 
 });

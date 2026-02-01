@@ -185,6 +185,46 @@ app.post('/submit-array-quiz', async (req, res) => {
   }
 });
 
+
+app.post('/submit-linked-list-quiz', async (req,res)=>{
+
+   try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest: true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.' , ',');
+       const userRef = db.ref("users").child(emailKey);
+
+       const snap = await userRef.once("value");
+       const userData = snap.val();
+
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevScore = userData.totalScore || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+       });
+
+       res.json({ success: true , guest: false });
+
+   }
+   catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false });
+  }
+
+});
+
+
+
+
 const PORT = 3001;
 app.listen(PORT , ()=>{
      console.log(`Server is running on http://localhost:${PORT}`);

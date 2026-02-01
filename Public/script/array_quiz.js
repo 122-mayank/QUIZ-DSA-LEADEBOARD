@@ -36,10 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let score = 0;
 
-    // ✅ auto total count
+
     const totalQuestions = Object.keys(correctAnswers).length;
 
-    // ✅ score calculation
+    
     for (let key in correctAnswers) {
       if (quizData[key] === correctAnswers[key]) {
         score++;
