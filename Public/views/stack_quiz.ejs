@@ -1,16 +1,252 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/style/nav.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linked List Quiz</title>
+  <link rel="stylesheet" href="/style/nav.css">
+ <style>
+
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Adjust content below navbar */
+.content-wrapper {
+  margin-top: 90px; /* navbar height */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px; /* prevents overflow on small screens */
+  box-sizing: border-box;
+}
+
+.quiz_container {
+  background: #ffffff15;
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px; /* keeps container inside screen */
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 60px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.question {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.question:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.question h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #f3f3f3;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  accent-color: #00ffbf;
+  margin-right: 8px;
+}
+
+button {
+  background: #00ffc8;
+  border: none;
+  color: #333;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00bfa5;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 900px) {
+  .quiz_container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .question h3 {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Ensure navbar links stay inside screen */
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .quiz_container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .question h3 {
+    font-size: 0.95rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
 </head>
+
 <body>
 
-    <%- include(partials/nav) %>
+    <%- include('partials/nav')  %>
 
-    
+     <div class ="content-wrapper">
+       <div class="quiz_container">
+         <h1>Stack Quiz</h1>
+
+          <form action="/submit-stack-quiz" method="POST" id="stackForm">
+
+             <% const questions = [
+
+                   {
+                      q: "1 . What is the main advantage of Linked List over Array ? ",
+                      opts: ["Faster access by index" , "Less memory usage" , "Dynamic size" , "Sorting is faster"]
+                   },
+                   {
+                      q: "2 . In a singly linked list, each node contains ? ",
+                      opts: ["Only data" , "Only pointer" , "Data + pointer to next node" , "Data + two pointers"]
+                   } ,
+                   {
+                      q: "3 . Time complexity to insert at the beginning of a singly linked list is ? ",
+                      opts: ["O(n)" , "O(logn)" , "O(1)" , "O(n²)"]
+
+                   },
+                   {
+                     q: "4 . Time complexity to access the 5th element in linked list ? ",
+                     opts: ["O(1)" , "O(n)" , "O(logn)" , "O(n logn)"]
+
+                   },
+                   {
+                      q: "5 . Which pointer stores the address of the first node ? ",
+                      opts: ["tail" , "start" ,"head" , "temp"]
+
+                   },
+                   {
+                      q: "6 . What happens if the head pointer is NULL ? ",
+                      opts: ["List has one element" , "List has two elements" , "List is Empty" , "No Error"]
+
+                   },
+                   {
+                      q: "7 . Which linked list allows traversal in both directions ? ",
+                      opts: ["Singly Linked List " , "Doubly Linked List" , "Circular Linked List" , "Stack"]
+
+                   },
+                   {
+                      q: "8 . Insertion at the end of a singly linked list takes ? ",
+                      opts: ["O(1)" , "O(n)" , "O(n logn)" , "O(n²)"]
+
+                   },
+                   {
+                      q: "9 . Which of the following is NOT an application of linked list ? ",
+                      opts: ["Implement Stack" , "Implement Queue" , "Implement Binary Search" , "Dynamic memory allocation"]
+
+                   },
+
+                   {
+                      q: "10 . What will be the time complexity to reverse a linked list iteratively ? ",
+                      opts: ["O(1)" , "O(n logn)" , "O(n)" , "O(n²)"]
+
+                   },
+                   {
+                     q: "11 . What is the time complexity to delete the last node of a singly linked list (no tail pointer) ? ",
+                    opts: ["O(1)" , "O(n logn)" , "O(n)" , "O(n²)"]
+                   },
+                   {
+                     q: "12 . Which technique is used to detect a cycle in a linked list efficiently ? ",
+                     opts: ["Binary Search" , "DFS" , "Hashing only" , "Flyod Cycle Detection"]
+                   },
+                   {
+                     q: "13 . What is the time complexity to find the middle of a linked list using two pointers ? ",
+                     opts: ["O(1)" , "O(logn)" , "O(n²)" ,"O(n)"]
+                   },
+                   {
+                    q: "14 . Why is binary search not efficient on a linked list ? ",
+                    opts: ["Sorting not possible" , "No random access" , "Memory overflow" ,"Too many pointers"]
+                   },
+                   {
+                     q: "15 . Which linked list uses more memory ? ",
+                      opts: ["Singly" , "Doubly" ,"Circular" , "All same"]
+                   }
+             ]; %>
+
+             <% const arr = [] %>
+
+             <% questions.forEach((item , i) =>{ %>
+
+              <div class="question">
+                <h3><%=item.q %></h3>
+                <% item.opts.forEach((opt , j) => { %>
+                       <label>
+                         <input type ="radio" name ="q<%= i + 1 %>" value ="<%= opt %>" class ="q<%= i+1 %>" required>
+                         <%= opt %>
+                       </label>
+               <% }) %>
+              </div>
+             <% })%>
+
+             <button type = "submit" class="btn2-quiz" >Submit Quiz</button>
+
+          </form>
+
+       </div>
+     </div>
+
+     <script src ="/script/stack.js"></script>
 
 </body>
 </html>

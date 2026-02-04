@@ -146,10 +146,6 @@ app.get('/linkedlist_quiz' , (req, res) =>{
     res.render('linkedlist_quiz');
 });
 
-app.get('/stack_quiz', (req,res) =>{
-  res.render('stack_quiz');
-});
-
 
 app.post('/submit-array-quiz', async (req, res) => {
   try {
@@ -225,6 +221,10 @@ app.post('/submit-linked-list-quiz', async (req,res)=>{
 
 });
 
+
+app.get('/stack_quiz', (req,res) =>{
+  res.render('stack_quiz');
+});
 
 
 
