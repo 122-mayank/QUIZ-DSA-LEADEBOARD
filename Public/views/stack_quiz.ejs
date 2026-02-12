@@ -154,73 +154,74 @@ button:hover {
              <% const questions = [
 
                    {
-                      q: "1 . What is the main advantage of Linked List over Array ? ",
-                      opts: ["Faster access by index" , "Less memory usage" , "Dynamic size" , "Sorting is faster"]
+                      q: "1 . What is the principle followed by Stack data structure ? ",
+                      opts: ["LIFO" , "FIFO" , "Priority" , "Random"]
                    },
                    {
-                      q: "2 . In a singly linked list, each node contains ? ",
-                      opts: ["Only data" , "Only pointer" , "Data + pointer to next node" , "Data + two pointers"]
+                      q: "2 . Which operation adds an element to the stack ? ",
+                      opts: ["pop()" , "enqueue()" , "push()" , "insert()"]
                    } ,
                    {
-                      q: "3 . Time complexity to insert at the beginning of a singly linked list is ? ",
-                      opts: ["O(n)" , "O(logn)" , "O(1)" , "O(n²)"]
+                      q: "3 . Which operation removes the top element from the stack ? ",
+                      opts: ["delete()" , "remove()" , "pop()" , "shift()"]
 
                    },
                    {
-                     q: "4 . Time complexity to access the 5th element in linked list ? ",
-                     opts: ["O(1)" , "O(n)" , "O(logn)" , "O(n logn)"]
+                     q: "4 . What is the time complexity of push operation in stack ? ",
+                     opts: [ "O(n)" , "O(logn)" , "O(n logn)" , "O(1)"]
 
                    },
                    {
-                      q: "5 . Which pointer stores the address of the first node ? ",
-                      opts: ["tail" , "start" ,"head" , "temp"]
+                      q: "5 . What will happen if you try to pop from an empty stack ? ",
+                      opts: ["Overflow" , "Underflow" ,"Segmentation fault always" , "Nothing happens"]
 
                    },
                    {
-                      q: "6 . What happens if the head pointer is NULL ? ",
-                      opts: ["List has one element" , "List has two elements" , "List is Empty" , "No Error"]
+                      q: "6 . Which data structure is mainly used to implement recursion internally ? ",
+                      opts: ["Queue" , "Heap" , "Stack" , "Linked List"]
 
                    },
                    {
-                      q: "7 . Which linked list allows traversal in both directions ? ",
-                      opts: ["Singly Linked List " , "Doubly Linked List" , "Circular Linked List" , "Stack"]
+                      q: "7 . Which of the following applications uses stack ? ",
+                      opts: ["Undo / Redo " , "Function calls" , "Expression Evaluation" , "All of the above"]
 
                    },
                    {
-                      q: "8 . Insertion at the end of a singly linked list takes ? ",
-                      opts: ["O(1)" , "O(n)" , "O(n logn)" , "O(n²)"]
+                      q: "8 . In an array-based stack, overflow occurs when ?  ",
+                      opts: ["top == -1" , "top == size - 1" , "top == 0" , "top == size"]
 
                    },
                    {
-                      q: "9 . Which of the following is NOT an application of linked list ? ",
-                      opts: ["Implement Stack" , "Implement Queue" , "Implement Binary Search" , "Dynamic memory allocation"]
+                      q: "9 . What is the time complexity to search an element in a stack ? ",
+                      opts: ["O(1)" , "O(log n)" , "O(n)" , "O(n logn)"]
 
                    },
 
                    {
-                      q: "10 . What will be the time complexity to reverse a linked list iteratively ? ",
-                      opts: ["O(1)" , "O(n logn)" , "O(n)" , "O(n²)"]
+                      q: "10 . Which stack application is used to check balanced parentheses ? ",
+                      opts: ["BFS only" , "Recursion only" , "Stack " , "HashMap"]
 
                    },
                    {
-                     q: "11 . What is the time complexity to delete the last node of a singly linked list (no tail pointer) ? ",
-                    opts: ["O(1)" , "O(n logn)" , "O(n)" , "O(n²)"]
+                     q: `11 . What is the output of the following stack operations?
+                              push(10), push(20), push(30), pop(), push(40), pop() `,
+                    opts: ["10" , "20" , "30" , "40"]
                    },
                    {
-                     q: "12 . Which technique is used to detect a cycle in a linked list efficiently ? ",
-                     opts: ["Binary Search" , "DFS" , "Hashing only" , "Flyod Cycle Detection"]
+                     q: "12 . Which problem can be solved using Monotonic Stack ? ",
+                     opts: ["Binary Search" , "Next Greater Element" , "Merge Sort" , "BFS Traversal"]
                    },
                    {
-                     q: "13 . What is the time complexity to find the middle of a linked list using two pointers ? ",
-                     opts: ["O(1)" , "O(logn)" , "O(n²)" ,"O(n)"]
+                     q: "13 . Minimum number of stacks required to implement a queue efficiently is ? ",
+                     opts: ["1" , "2" , "3" ,"4"]
                    },
                    {
-                    q: "14 . Why is binary search not efficient on a linked list ? ",
-                    opts: ["Sorting not possible" , "No random access" , "Memory overflow" ,"Too many pointers"]
+                    q: "14 . Which data structure is used in Depth First Search (DFS) ? ",
+                    opts: ["Queue" , "Stack" , "Priority Queue" ,"Heap"]
                    },
                    {
-                     q: "15 . Which linked list uses more memory ? ",
-                      opts: ["Singly" , "Doubly" ,"Circular" , "All same"]
+                     q: "15 . What is the time complexity of evaluating postfix expression using stack ?",
+                      opts: ["O(1)" , "O(log n)" ,"O(n)" , "O(n²)"]
                    }
              ]; %>
 
@@ -239,14 +240,12 @@ button:hover {
               </div>
              <% })%>
 
-             <button type = "submit" class="btn2-quiz" >Submit Quiz</button>
+             <button type = "submit" class="btn3-quiz" >Submit Quiz</button>
 
           </form>
 
        </div>
      </div>
-
-     <script src ="/script/stack.js"></script>
 
 </body>
 </html>

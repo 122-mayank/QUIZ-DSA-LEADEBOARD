@@ -146,6 +146,9 @@ app.get('/linkedlist_quiz' , (req, res) =>{
     res.render('linkedlist_quiz');
 });
 
+app.get('/stack_quiz', (req,res) =>{
+  res.render('stack_quiz');
+});
 
 app.post('/submit-array-quiz', async (req, res) => {
   try {
@@ -221,10 +224,48 @@ app.post('/submit-linked-list-quiz', async (req,res)=>{
 
 });
 
+app.post('/submit-stack-quiz' , async(req,res)=>{
 
-app.get('/stack_quiz', (req,res) =>{
-  res.render('stack_quiz');
+   try{
+
+      if(!req.session.user){
+          return res.json({success:true , guest:true});
+      }
+
+      const {score} = req.body;
+
+      const emailKey = req.session.user.email.replace('.',',');
+      const userRef = db.ref("users").child(emailKey);
+
+      const snap = await userRef.once("value");
+      const userData = snap.val();
+
+     const prevScore = userData.totalScore || 0;
+     const prevQuiz = userData.totalQuiz || 0;
+     const prevMarks = userData.prevMarks || 0;
+
+     await userRef.update({
+
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+     });
+
+ res.json({ success: true , guest: false });
+
+
+   }catch(error){
+    console.error(error);
+    res.status(500).json({ success: false });
+  }
+
+
+
 });
+
+
+
 
 
 
