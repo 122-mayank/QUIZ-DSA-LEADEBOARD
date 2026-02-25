@@ -1,9 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.querySelector('.btn3-quiz').addEventListener( "click", async(e) => {
+  e.preventDefault();
 
   const form = document.querySelector('#stackForm');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
 
     const formData = new FormData(form);
 
@@ -64,18 +62,16 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const result = await response.json();
-
+      console.log(result.success);
       if (result.success) {
 
-  // 🟡 Guest user
-  if (result.guest) {
-    alert(`Guest Mode 🎯\nYour Score: ${score}/${totalQuestions}`);
-    return;
-  }
+       if (result.guest) {
+          alert(`Guest Mode 🎯\nYour Score: ${score}/${totalQuestions}`);
+           return;
+      }
 
-  // 🟢 Logged-in user
-  alert(`Quiz submitted! Your score: ${score}/${totalQuestions}`);
-  window.location.href = '/profile';
+      alert(`Quiz submitted! Your score: ${score}/${totalQuestions}`);
+      window.location.href = '/profile';
 }
 
       else {
@@ -85,7 +81,5 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("Error:", error);
     }
-
-  });
 
 });

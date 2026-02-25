@@ -1,11 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stack Quiz</title>
-  <link rel="stylesheet" href="/style/nav.css">
- <style>
-
-  * {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Quiz</title>
+    <link rel="stylesheet" href="/style/nav.css">
+<style>
+     * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -139,89 +140,88 @@ button:hover {
 }
 </style>
 
-</head>
 
+</head>
 <body>
 
-    <%- include('partials/nav')  %>
-
+    <%- include('partials/nav') %>
+    
      <div class ="content-wrapper">
        <div class="quiz_container">
-         <h1>Stack Quiz</h1>
+         <h1>Queue Quiz</h1>
 
-          <form action="/submit-stack-quiz" method="POST" id="stackForm">
+          <form  action="/submit-queue-quiz" method="POST" id="queueForm">
 
              <% const questions = [
 
                    {
-                      q: "1 . What is the principle followed by Stack data structure ? ",
-                      opts: ["LIFO" , "FIFO" , "Priority" , "Random"]
+                      q: "1 . What is the principle followed by Queue data structure ? ",
+                      opts: ["LIFO" , "FIFO" , "LILO" , "FILO"]
                    },
                    {
-                      q: "2 . Which operation adds an element to the stack ? ",
-                      opts: ["pop()" , "enqueue()" , "push()" , "insert()"]
+                      q: "2 . Which operation inserts an element into a queue? ",
+                      opts: ["push()" , "pop()" , "enqueue()" , "insert()"]
                    } ,
                    {
-                      q: "3 . Which operation removes the top element from the stack ? ",
-                      opts: ["delete()" , "remove()" , "pop()" , "shift()"]
+                      q: "3 . Which operation removes an element from a queue? ",
+                      opts: ["delete()" , "dequeue()" , "pop()" , "removeLast()"]
 
                    },
                    {
-                     q: "4 . What is the time complexity of push operation in stack ? ",
-                     opts: [ "O(n)" , "O(logn)" , "O(n logn)" , "O(1)"]
+                     q: "4 . In a queue, deletion happens from ? ",
+                     opts: [ "Rear" , "Front" , "Middle" , "Any position"]
 
                    },
                    {
-                      q: "5 . What will happen if you try to pop from an empty stack ? ",
-                      opts: ["Overflow" , "Underflow" ,"Segmentation fault always" , "Nothing happens"]
+                      q: "5 . In a queue, insertion happens at ? ",
+                      opts: ["Front" , "Middle" ,"Rear" , "Random position"]
 
                    },
                    {
-                      q: "6 . Which data structure is mainly used to implement recursion internally ? ",
+                      q: "6 . Which data structure is mainly used to implement BFS internally ? ",
                       opts: ["Queue" , "Heap" , "Stack" , "Linked List"]
 
                    },
                    {
-                      q: "7 . Which of the following applications uses stack ? ",
-                      opts: ["Undo / Redo " , "Function calls" , "Expression Evaluation" , "All of the above"]
+                      q: "7 . Which real-life example represents a queue? ",
+                      opts: ["Undo / Redo " , "Function calls" , "Expression Evaluation" , "People standing in the line"]
 
                    },
                    {
-                      q: "8 . In an array-based stack, overflow occurs when ?  ",
-                      opts: ["top == -1" , "top == size - 1" , "top == 0" , "top == size"]
+                      q: "8 . What is queue underflow ? ",
+                      opts: ["Queue is Full" , "Rear becomes 0" , "Queue has one element" , "Queue is empty and dequeue is performed"]
 
                    },
                    {
-                      q: "9 . What is the time complexity to search an element in a stack ? ",
+                      q: "9 . What is the time complexity of enqueue() in array implementation ? ",
                       opts: ["O(1)" , "O(log n)" , "O(n)" , "O(n logn)"]
 
                    },
 
                    {
-                      q: "10 . Which stack application is used to check balanced parentheses ? ",
-                      opts: ["BFS only" , "Recursion only" , "Stack " , "HashMap"]
+                      q: "10 . In a simple array queue of size 5, what condition indicates overflow ? ",
+                      opts: ["front == rear" , "rear == size - 1" , "rear == 0 " , "front == -1"]
 
                    },
                    {
-                     q: `11 . What is the output of the following stack operations?
-                              push(10), push(20), push(30), pop(), push(40), pop() `,
-                    opts: ["10" , "20" , "30" , "40"]
+                     q: `11 . In priority queue, elements are removed based on ? `,
+                    opts: ["Insertion order" , "FIFO" , "Priority" , "Random order"]
                    },
                    {
-                     q: "12 . Which problem can be solved using Monotonic Stack ? ",
-                     opts: ["Binary Search" , "Next Greater Element" , "Merge Sort" , "BFS Traversal"]
+                     q: "12 . What is the space complexity of queue storing n elements ? ",
+                     opts: ["O(1)" , "O(log n)" , "O(n²)" , "O(n)"]
                    },
                    {
-                     q: "13 . Minimum number of stacks required to implement a queue efficiently is ? ",
-                     opts: ["1" , "2" , "3" ,"4"]
+                     q: "13 . What is the advantage of circular queue over simple queue? ",
+                     opts: ["Faster execution" , "Less memory usage" , "Avoids wasted space" ,"Easier implementation"]
                    },
                    {
-                    q: "14 . Which data structure is used in Depth First Search (DFS) ? ",
-                    opts: ["Queue" , "Stack" , "Priority Queue" ,"Heap"]
+                    q: "14 . Which problem can be solved using queue ? ",
+                    opts: ["Balanced Parentheses" , "Level Order Traversal" , "Infix to Postfix" ,"Recursion"]
                    },
                    {
-                     q: "15 . What is the time complexity of evaluating postfix expression using stack ?",
-                      opts: ["O(1)" , "O(log n)" ,"O(n)" , "O(n²)"]
+                     q: "15 . In a circular queue, overflow occurs when ? ",
+                      opts: ["rear == size - 1" , "rear == front" ,"(rear + 1) % size == front" , "front == -1"]
                    }
              ]; %>
 
@@ -240,13 +240,14 @@ button:hover {
               </div>
              <% })%>
 
-             <button type = "submit" class="btn3-quiz" >Submit Quiz</button>
+             <button type = "submit" class="btn4-quiz" >Submit Quiz</button>
 
           </form>
 
        </div>
      </div>
- <script src ="/script/stack.js"></script>
+ <script src ="/script/queue.js"></script>
+
 
 </body>
 </html>

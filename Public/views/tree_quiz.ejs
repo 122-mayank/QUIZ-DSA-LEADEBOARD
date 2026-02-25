@@ -1,11 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stack Quiz</title>
-  <link rel="stylesheet" href="/style/nav.css">
- <style>
-
-  * {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tree Quiz</title>
+    <link rel="stylesheet" href="/style/nav.css">
+<style>
+     * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -139,89 +140,94 @@ button:hover {
 }
 </style>
 
-</head>
 
+</head>
 <body>
 
-    <%- include('partials/nav')  %>
-
+    <%- include('partials/nav') %>
+    
      <div class ="content-wrapper">
        <div class="quiz_container">
-         <h1>Stack Quiz</h1>
+         <h1>Tree Quiz</h1>
 
-          <form action="/submit-stack-quiz" method="POST" id="stackForm">
+          <form  action="/submit-tree-quiz" method="POST" id="treeForm">
 
              <% const questions = [
 
                    {
-                      q: "1 . What is the principle followed by Stack data structure ? ",
-                      opts: ["LIFO" , "FIFO" , "Priority" , "Random"]
+                      q: "1 . Maximum number of nodes at level l in a binary tree ? ",
+                      opts: ["2^l" , "2^(l-1)" , "l²" , "l"]
                    },
                    {
-                      q: "2 . Which operation adds an element to the stack ? ",
-                      opts: ["pop()" , "enqueue()" , "push()" , "insert()"]
+                      q: "2 . In a BST, where will a new element be inserted ? ",
+                      opts: ["At root" , "At leaf position" , "Always left side" , "Random position"]
                    } ,
                    {
-                      q: "3 . Which operation removes the top element from the stack ? ",
-                      opts: ["delete()" , "remove()" , "pop()" , "shift()"]
+                      q: "3 . Time complexity of search in a balanced BST ? ",
+                      opts: ["O(1)" , "O(n logn)" , "O(n)" , "O(logn)"]
 
                    },
                    {
-                     q: "4 . What is the time complexity of push operation in stack ? ",
-                     opts: [ "O(n)" , "O(logn)" , "O(n logn)" , "O(1)"]
+                     q: "4 . In a complete binary tree ? ",
+                     opts: [ "All levels are completely filled" , 
+                     "All levels are filled except possibly last, filled from left" ,
+                      "Tree is balanced" , "Every node has 2 children"]
+                   },
+                   {
+                      q: "5 . A full binary tree is a tree in which ? ",
+                      opts: ["Every node has 2 children" , 
+                      "Every node has 0 or 2 children" ,"All leaves are at same level" 
+                      , "Each node has at most 1 child"]
 
                    },
                    {
-                      q: "5 . What will happen if you try to pop from an empty stack ? ",
-                      opts: ["Overflow" , "Underflow" ,"Segmentation fault always" , "Nothing happens"]
+                      q: "6 . Which traversal gives sorted output in a Binary Search Tree (BST) ? ",
+                      opts: ["PreOrder" , "PostOrder" , "InOrder" , "LevelOrder"]
 
                    },
                    {
-                      q: "6 . Which data structure is mainly used to implement recursion internally ? ",
-                      opts: ["Queue" , "Heap" , "Stack" , "Linked List"]
+                      q: "7 . The minimum number of nodes in a binary tree of height h ? ",
+                      opts: ["h" , "2^h - 1" , 
+                      "h + 1" , "1"]
 
                    },
                    {
-                      q: "7 . Which of the following applications uses stack ? ",
-                      opts: ["Undo / Redo " , "Function calls" , "Expression Evaluation" , "All of the above"]
+                      q: "8 . Which traversal is used to delete a binary tree ? ",
+                      opts: ["PreOrder" , "PostOrder" , "InOrder" , "LevelOrder"]
 
                    },
                    {
-                      q: "8 . In an array-based stack, overflow occurs when ?  ",
-                      opts: ["top == -1" , "top == size - 1" , "top == 0" , "top == size"]
-
-                   },
-                   {
-                      q: "9 . What is the time complexity to search an element in a stack ? ",
+                      q: "9 . What is the time complexity of binary tree insertion ? ",
                       opts: ["O(1)" , "O(log n)" , "O(n)" , "O(n logn)"]
 
                    },
 
                    {
-                      q: "10 . Which stack application is used to check balanced parentheses ? ",
-                      opts: ["BFS only" , "Recursion only" , "Stack " , "HashMap"]
+                      q: "10 . If inorder and preorder traversals are given, can we construct the tree ? ",
+                      opts: ["Yes, uniquely" , "No" , "Sometimes" , "Only if tree is BST"]
 
                    },
                    {
-                     q: `11 . What is the output of the following stack operations?
-                              push(10), push(20), push(30), pop(), push(40), pop() `,
-                    opts: ["10" , "20" , "30" , "40"]
+                     q: `11 . In AVL tree, balance factor is ? `,
+                    opts: ["Height(left) + Height(right)" , 
+                    "Height(left) − Height(right)" , "Level difference" ,
+                     "Total nodes difference"]
                    },
                    {
-                     q: "12 . Which problem can be solved using Monotonic Stack ? ",
-                     opts: ["Binary Search" , "Next Greater Element" , "Merge Sort" , "BFS Traversal"]
+                     q: "12 . If a full binary tree has L leaf nodes, total number of nodes is ? ",
+                     opts: ["2L" , "2L-1" , "L-1" , "L²"]
                    },
                    {
-                     q: "13 . Minimum number of stacks required to implement a queue efficiently is ? ",
-                     opts: ["1" , "2" , "3" ,"4"]
+                     q: "13 . Number of binary trees possible with 3 nodes ? ",
+                     opts: ["3" , "5" , "6" ,"8"]
                    },
                    {
-                    q: "14 . Which data structure is used in Depth First Search (DFS) ? ",
-                    opts: ["Queue" , "Stack" , "Priority Queue" ,"Heap"]
+                    q: "14 . Which data structure is most appropriate to represent this system ? ",
+                    opts: ["Queue" , "Stack" , "Tree" ,"Graph"]
                    },
                    {
-                     q: "15 . What is the time complexity of evaluating postfix expression using stack ?",
-                      opts: ["O(1)" , "O(log n)" ,"O(n)" , "O(n²)"]
+                     q: "15 . Real Life Application of Tree Data Structure ? ",
+                      opts: ["Shortest Path" , "Searching in DataBase" ,"Dictionary Apps" , "All of above"]
                    }
              ]; %>
 
@@ -240,13 +246,14 @@ button:hover {
               </div>
              <% })%>
 
-             <button type = "submit" class="btn3-quiz" >Submit Quiz</button>
+             <button type = "submit" class="btn5-quiz" >Submit Quiz</button>
 
           </form>
 
        </div>
      </div>
- <script src ="/script/stack.js"></script>
+ <script src ="/script/tree.js"></script>
+
 
 </body>
 </html>

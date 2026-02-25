@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Quiz</title>
+    <link rel="stylesheet" href="/style/nav.css">
+<style>
+     * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Adjust content below navbar */
+.content-wrapper {
+  margin-top: 90px; /* navbar height */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px; /* prevents overflow on small screens */
+  box-sizing: border-box;
+}
+
+.quiz_container {
+  background: #ffffff15;
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px; /* keeps container inside screen */
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 60px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.question {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.question:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.question h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #f3f3f3;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  accent-color: #00ffbf;
+  margin-right: 8px;
+}
+
+button {
+  background: #00ffc8;
+  border: none;
+  color: #333;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00bfa5;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 900px) {
+  .quiz_container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .question h3 {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Ensure navbar links stay inside screen */
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .quiz_container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .question h3 {
+    font-size: 0.95rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+
+</head>
+<body>
+
+    <%- include('partials/nav') %>
+    
+     <div class ="content-wrapper">
+       <div class="quiz_container">
+         <h1>Graph Quiz</h1>
+
+          <form  action="/submit-graph-quiz" method="POST" id="graphForm">
+
+             <% const questions = [
+
+             {
+               q: "1. A graph with no cycles is called?",
+               opts: ["Complete Graph", "Acyclic Graph", "Weighted Graph", "Directed Graph"]
+             },
+             {
+               q: "2. Which data structure is commonly used to implement BFS?",
+               opts: ["Stack", "Queue", "Heap", "Set"]
+             },
+             {
+               q: "3. Which data structure is commonly used to implement DFS?",
+               opts: ["Queue", "Stack", "Array", "Linked List"]
+             },
+             {
+               q: "4. Maximum number of edges in a simple undirected graph with n vertices?",
+               opts: ["n", "n²", "n(n−1)/2", "2n"]
+             },
+             {
+               q: "5. Time complexity of BFS using adjacency list?",
+               opts: ["O(V)", "O(E)", "O(V + E)", "O(V²)"]
+             },
+             {
+               q: "6. A graph with V vertices and V−1 edges and no cycle is?",
+               opts: ["Complete Graph", "Tree", "DAG", "Bipartite Graph"]
+             },
+             {
+               q: "7. Which algorithm finds shortest path in weighted graph with non-negative weights?",
+               opts: ["DFS", "Dijkstra", "BFS", "Topological Sort"]
+             },
+             {
+               q: "8. Adjacency matrix space complexity?",
+               opts: ["O(V)", "O(E)", "O(V²)", "O(V + E)"]
+             },
+             {
+               q: "9. A graph is bipartite if?",
+               opts: ["It has even vertices", "It has no cycle", "It can be colored using 2 colors", "It is complete"]
+             },
+             {
+               q: "10. Directed Acyclic Graph (DAG) always has?",
+               opts: ["At least one cycle", "At least one topological ordering", "Equal edges and vertices", "No vertices"]
+             },
+             {
+               q: "11. Which algorithm is used to find Strongly Connected Components?",
+               opts: ["Prim’s", "Kruskal", "Kosaraju", "Dijkstra"]
+             },
+             {
+               q: "12. Time complexity of Dijkstra using Min Heap?",
+               opts: ["O(V²)", "O(E log V)", "O(V log E)", "O(E²)"]
+             },
+             {
+               q: "13. Minimum Spanning Tree can be found using?",
+               opts: ["DFS", "BFS", "Prim’s and Kruskal", "Dijkstra"]
+             },
+             {
+               q: "14. If a graph contains a negative weight cycle, which algorithm fails?",
+               opts: ["BFS", "Bellman-Ford", "Dijkstra", "Topological Sort"]
+             },
+             {
+               q: "15. Topological sorting is possible only in?",
+               opts: ["Undirected Graph", "Cyclic Graph", "Directed Acyclic Graph", "Complete Graph"]
+             }
+
+           ]; %>
+
+             <% const arr = [] %>
+
+             <% questions.forEach((item , i) =>{ %>
+
+              <div class="question">
+                <h3><%=item.q %></h3>
+                <% item.opts.forEach((opt , j) => { %>
+                       <label>
+                         <input type ="radio" name ="q<%= i + 1 %>" value ="<%= opt %>" class ="q<%= i+1 %>" required>
+                         <%= opt %>
+                       </label>
+               <% }) %>
+              </div>
+             <% })%>
+
+             <button type = "submit" class="btn6-quiz" >Submit Quiz</button>
+
+          </form>
+
+       </div>
+     </div>
+ <script src ="/script/graph.js"></script>
+
+
+</body>
+</html>

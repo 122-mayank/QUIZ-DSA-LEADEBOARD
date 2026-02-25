@@ -150,6 +150,18 @@ app.get('/stack_quiz', (req,res) =>{
   res.render('stack_quiz');
 });
 
+app.get('/queue_quiz',(req,res)=>{
+     res.render('queue_quiz');
+});
+
+app.get('/tree_quiz',(req,res)=>{
+   res.render('tree_quiz');
+});
+
+app.get('/graph_quiz',(req,res)=>{
+  res.render('graph');
+})
+
 app.post('/submit-array-quiz', async (req, res) => {
   try {
 
@@ -242,7 +254,7 @@ app.post('/submit-stack-quiz' , async(req,res)=>{
 
      const prevScore = userData.totalScore || 0;
      const prevQuiz = userData.totalQuiz || 0;
-     const prevMarks = userData.prevMarks || 0;
+     const prevMarks = userData.totalMarks || 0;
 
      await userRef.update({
 
@@ -252,22 +264,144 @@ app.post('/submit-stack-quiz' , async(req,res)=>{
 
      });
 
- res.json({ success: true , guest: false });
+    res.json({ success: true , guest: false });
 
 
    }catch(error){
     console.error(error);
     res.status(500).json({ success: false });
   }
-
-
-
 });
 
 
+app.post('/submit-queue-quiz',async (req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+});
 
 
+app.post('/submit-tree-quiz',async(req,res)=>{
 
+try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+});
+
+app.post('/submit-graph-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
 
 const PORT = 3001;
 app.listen(PORT , ()=>{
