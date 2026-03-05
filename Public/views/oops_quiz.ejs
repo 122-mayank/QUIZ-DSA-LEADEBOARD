@@ -1,0 +1,330 @@
+!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOPS Quiz</title>
+    <link rel="stylesheet" href="/style/nav.css">
+<style>
+     * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Adjust content below navbar */
+.content-wrapper {
+  margin-top: 90px; /* navbar height */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px; /* prevents overflow on small screens */
+  box-sizing: border-box;
+}
+
+.quiz_container {
+  background: #ffffff15;
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px; /* keeps container inside screen */
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 60px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.question {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.question:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.question h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #f3f3f3;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  accent-color: #00ffbf;
+  margin-right: 8px;
+}
+
+button {
+  background: #00ffc8;
+  border: none;
+  color: #333;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00bfa5;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 900px) {
+  .quiz_container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .question h3 {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Ensure navbar links stay inside screen */
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .quiz_container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .question h3 {
+    font-size: 0.95rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+
+</head>
+<body>
+
+    <%- include('partials/nav') %>
+    
+     <div class ="content-wrapper">
+       <div class="quiz_container">
+         <h1>OOPS Quiz</h1>
+
+          <form  action="/submit-oops-quiz" method="POST" id="oopsForm">
+
+           
+
+<% const questions = [
+
+{
+  q: "1. Which principle of OOPS hides internal implementation details?",
+  opts: ["Abstraction", "Encapsulation", "Inheritance", "Polymorphism"]
+},
+
+{
+  q: "2. What is the main purpose of a constructor?",
+  opts: [
+    "Destroy object",
+    "Initialize object data members",
+    "Overload operators",
+    "Hide data"
+  ]
+},
+
+{
+  q: "3. Which type of inheritance causes the Diamond Problem?",
+  opts: [
+    "Single",
+    "Multilevel",
+    "Multiple",
+    "Hierarchical"
+  ]
+},
+
+{
+  q: "4. How is Diamond Problem resolved in C++?",
+  opts: [
+    "Using virtual inheritance",
+    "Using pointers",
+    "Using encapsulation",
+    "Using overloading"
+  ]
+},
+
+{
+  q: "5. What is Runtime Polymorphism achieved through?",
+  opts: [
+    "Function Overloading",
+    "Operator Overloading",
+    "Method Overriding",
+    "Templates"
+  ]
+},
+
+{
+  q: "6. Which keyword is used to prevent inheritance?",
+  opts: [
+    "static",
+    "final",
+    "const",
+    "virtual"
+  ]
+},
+
+{
+  q: "7. What is pure virtual function?",
+  opts: [
+    "Function without body",
+    "Function with default implementation",
+    "Static function",
+    "Private constructor"
+  ]
+},
+
+{
+  q: "8. What happens if a class contains at least one pure virtual function?",
+  opts: [
+    "It becomes abstract class",
+    "It becomes static class",
+    "It cannot have constructor",
+    "It cannot inherit"
+  ]
+},
+
+{
+  q: "9. Which principle promotes code reusability?",
+  opts: [
+    "Encapsulation",
+    "Abstraction",
+    "Inheritance",
+    "Polymorphism"
+  ]
+},
+
+{
+  q: "10. What is function overloading?",
+  opts: [
+    "Same function name with different parameters",
+    "Same function body",
+    "Using virtual keyword",
+    "Multiple return types only"
+  ]
+},
+
+{
+  q: "11. Which access specifier provides maximum restriction?",
+  opts: [
+    "public",
+    "protected",
+    "private",
+    "default"
+  ]
+},
+
+{
+  q: "12. What is object slicing?",
+  opts: [
+    "Copying derived object to base object",
+    "Deleting object",
+    "Multiple inheritance issue",
+    "Memory leak"
+  ]
+},
+
+{
+  q: "13. Which feature supports dynamic binding?",
+  opts: [
+    "static keyword",
+    "virtual keyword",
+    "const keyword",
+    "friend function"
+  ]
+},
+
+{
+  q: "14. Which OOPS principle reduces system complexity?",
+  opts: [
+    "Abstraction",
+    "Inheritance",
+    "Overloading",
+    "Overriding"
+  ]
+},
+
+{
+  q: "15. Which concept allows same interface but different implementations?",
+  opts: [
+    "Encapsulation",
+    "Polymorphism",
+    "Abstraction",
+    "Composition"
+  ]
+}
+
+]; %>
+             <% const arr = [] %>
+
+             <% questions.forEach((item , i) =>{ %>
+
+              <div class="question">
+                <h3><%=item.q %></h3>
+                <% item.opts.forEach((opt , j) => { %>
+                       <label>
+                         <input type ="radio" name ="q<%= i + 1 %>" value ="<%= opt %>" class ="q<%= i+1 %>" required>
+                         <%= opt %>
+                       </label>
+               <% }) %>
+              </div>
+             <% })%>
+
+             <button type = "submit" class="btn13-quiz" >Submit Quiz</button>
+
+          </form>
+
+       </div>
+     </div>
+ <script src ="/script/oops.js"></script>
+
+
+</body>
+</html>

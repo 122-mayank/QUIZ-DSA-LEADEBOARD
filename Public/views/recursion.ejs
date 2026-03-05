@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursion Quiz</title>
+    <link rel="stylesheet" href="/style/nav.css">
+<style>
+     * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Adjust content below navbar */
+.content-wrapper {
+  margin-top: 90px; /* navbar height */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px; /* prevents overflow on small screens */
+  box-sizing: border-box;
+}
+
+.quiz_container {
+  background: #ffffff15;
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px; /* keeps container inside screen */
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 60px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.question {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.question:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.question h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #f3f3f3;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  accent-color: #00ffbf;
+  margin-right: 8px;
+}
+
+button {
+  background: #00ffc8;
+  border: none;
+  color: #333;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00bfa5;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 900px) {
+  .quiz_container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .question h3 {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Ensure navbar links stay inside screen */
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .quiz_container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .question h3 {
+    font-size: 0.95rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+
+</head>
+<body>
+
+    <%- include('partials/nav') %>
+    
+     <div class ="content-wrapper">
+       <div class="quiz_container">
+         <h1>Recursion Quiz</h1>
+
+          <form  action="/submit-recursion-quiz" method="POST" id="recursionForm">
+
+             <% const questions = [
+
+                   {
+                      q: "1 . What is recursion ? ",
+                      opts: ["A loop inside a function" ,
+                       "A function calling another function" , "A function calling itself" , "A function with parameters"]
+                   },
+                   {
+                      q: "2 . What is the most important part of a recursive function ? ",
+                      opts: ["Loop" , "Base Case" , "Return Statement" , "Global Variable"]
+                   } ,
+                   {
+                      q: "3 . If a recursive function has no base case, what happens ? ",
+                      opts: ["It runs once" , "It gives correct output" ,
+                       "Infinite recursion → Stack overflow" , "It converts to loop"]
+
+                   },
+                   {
+                     q: `4 .void fun(int n){
+                             if(n == 0) return;
+                             cout << n << " ";
+                            fun(n-1);
+                            }
+                            fun(3); `,
+                     opts: [ "3 2 1" , 
+                     "1 2 3" ,
+                      "3 2 1 0" , "Infinite"]
+                   },
+                   {
+                      q: "5 . What is the time complexity of factorial using recursion ? ",
+                      opts: ["O(1)" , "O(n)" ,"O(n²)" , "O(log n)"]
+
+                   },
+                   {
+                      q: "6 . What is tail recursion ? ",
+                      opts: ["Recursive call at start" ,
+                       "Recursive call in middle" , "Recursive call at end" 
+                       , "No return statement"]
+
+                   },
+                   {
+                      q: "7 . Which problem is naturally suited for recursion ? ",
+                      opts: ["Binary Search" , "Merge Sort" , 
+                      "Tree Traversal" , "All of the above"]
+
+                   },
+                   {
+                      q: "8 . What is space complexity of simple recursion depth n ? ",
+                      opts: ["O(1)" , "O(n)" ,"O(n²)" , "O(log n)"]
+
+                   },
+                   {
+                      q: "9 . What happens first in recursion ? ",
+                      opts: ["Base Case" , "Recursive Call" , "Stack Push" , "Return"]
+
+                   },
+
+                   {
+                      q: "10 . What is indirect recursion ? ",
+                      opts: ["Function calls itself" , 
+                      "Function calls another function which calls first function" ,
+                       "Loop inside recursion" , "Multiple base cases"]
+
+                   },
+                   {
+                     q: `11 . Which traversal uses recursion most commonly ? `,
+                    opts: ["BFS" , "DFS" , "Dijkstra" ,"Topological sort"]
+                   },
+                   {
+                     q: "12 . What is the recurrence relation of binary search ? ",
+                     opts: ["T(n) = T(n-1) + O(1)" , "T(n) = 2T(n/2) + O(1)" ,
+                      "T(n) = T(n/2) + O(1)" , "T(n) = T(n-2)"]
+                   },
+                   {
+                     q: "13 . Maximum recursion depth depends on ? ",
+                     opts: ["Compiler" , "RAM" , "Stack Size" ,"CPU Speed"]
+                   },
+                   {
+                    q: "14 . Which technique removes overlapping recursion calls ? ",
+                    opts: ["Backtracking" , "Memoization" , "Greedy" ,"Sorting"]
+                   },
+                   {
+                     q: "15 . Real Life Application of Recursion Algorithm ? ",
+                      opts: ["File System Navigation" , "Searching in DataBase" ,"Parsing and Compilers" , "All of above"]
+                   }
+             ]; %>
+
+             <% const arr = [] %>
+
+             <% questions.forEach((item , i) =>{ %>
+
+              <div class="question">
+                <h3><%=item.q %></h3>
+                <% item.opts.forEach((opt , j) => { %>
+                       <label>
+                         <input type ="radio" name ="q<%= i + 1 %>" value ="<%= opt %>" class ="q<%= i+1 %>" required>
+                         <%= opt %>
+                       </label>
+               <% }) %>
+              </div>
+             <% })%>
+
+             <button type = "submit" class="btn7-quiz" >Submit Quiz</button>
+
+          </form>
+
+       </div>
+     </div>
+ <script src ="/script/recursion.js"></script>
+
+
+</body>
+</html>

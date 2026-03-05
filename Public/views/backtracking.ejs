@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BackTracking Quiz</title>
+    <link rel="stylesheet" href="/style/nav.css">
+<style>
+     * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Adjust content below navbar */
+.content-wrapper {
+  margin-top: 90px; /* navbar height */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px; /* prevents overflow on small screens */
+  box-sizing: border-box;
+}
+
+.quiz_container {
+  background: #ffffff15;
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px; /* keeps container inside screen */
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 60px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.question {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.question:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.question h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #f3f3f3;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  accent-color: #00ffbf;
+  margin-right: 8px;
+}
+
+button {
+  background: #00ffc8;
+  border: none;
+  color: #333;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00bfa5;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 900px) {
+  .quiz_container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .question h3 {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Ensure navbar links stay inside screen */
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .quiz_container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .question h3 {
+    font-size: 0.95rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+
+</head>
+<body>
+
+    <%- include('partials/nav') %>
+    
+     <div class ="content-wrapper">
+       <div class="quiz_container">
+         <h1>BackTracking Quiz</h1>
+
+          <form  action="/submit-backtracking-quiz" method="POST" id="backtrackingForm">
+
+            <% const questions = [
+
+{
+  q: "1. What is the main idea behind backtracking?",
+  opts: [
+    "Divide the problem into subproblems",
+    "Try all possibilities and undo if not valid",
+    "Use greedy approach",
+    "Sort the array first"
+  ]
+},
+
+{
+  q: "2. Backtracking is mainly used in which type of problems?",
+  opts: [
+    "Optimization problems only",
+    "Decision and constraint satisfaction problems",
+    "Searching in sorted arrays",
+    "Graph shortest path problems"
+  ]
+},
+
+{
+  q: "3. Which of the following problems is NOT typically solved using backtracking?",
+  opts: [
+    "N-Queens",
+    "Sudoku Solver",
+    "Binary Search",
+    "Subset Sum"
+  ]
+},
+
+{
+  q: "4. What is the time complexity of N-Queens in worst case?",
+  opts: [
+    "O(n)",
+    "O(n log n)",
+    "O(n!)",
+    "O(n²)"
+  ]
+},
+
+{
+  q: "5. In backtracking, what does 'undo step' mean?",
+  opts: [
+    "Delete the entire recursion stack",
+    "Remove the last choice and try another option",
+    "Restart program",
+    "Reverse the array"
+  ]
+},
+
+{
+  q: "6. Which data structure is commonly used in backtracking?",
+  opts: [
+    "Queue",
+    "Stack (recursion stack)",
+    "Heap",
+    "HashMap"
+  ]
+},
+
+{
+  q: "7. In Sudoku solver, why do we backtrack?",
+  opts: [
+    "To optimize memory",
+    "When a number placement violates constraints",
+    "To reduce recursion depth",
+    "To sort numbers"
+  ]
+},
+
+{
+  q: "8. What is the base condition in backtracking generally?",
+  opts: [
+    "When loop ends",
+    "When a valid solution is found",
+    "When array is sorted",
+    "When stack is empty"
+  ]
+},
+
+{
+  q: "9. Backtracking is an improvement over which approach?",
+  opts: [
+    "Dynamic Programming",
+    "Pure Brute Force",
+    "Greedy",
+    "Binary Search"
+  ]
+},
+
+{
+  q: "10. Which problem uses backtracking with pruning?",
+  opts: [
+    "Merge Sort",
+    "Branch and Bound",
+    "Linear Search",
+    "Heap Sort"
+  ]
+},
+
+{
+  q: "11. What happens if we don't undo the choice in backtracking?",
+  opts: [
+    "Correct solution always",
+    "Infinite loop",
+    "Wrong answers due to state pollution",
+    "Better performance"
+  ]
+},
+
+{
+  q: "12. In permutation generation, what is the typical approach?",
+  opts: [
+    "Fix one element and recursively permute the rest",
+    "Sort and pick middle element",
+    "Use binary search",
+    "Use hash table only"
+  ]
+},
+
+{
+  q: "13. What is pruning in backtracking?",
+  opts: [
+    "Stopping recursion when condition fails",
+    "Deleting memory",
+    "Clearing stack",
+    "Restarting recursion"
+  ]
+},
+
+{
+  q: "14. Which of the following problems involves exploring all subsets?",
+  opts: [
+    "Subset Sum",
+    "Binary Search",
+    "Dijkstra",
+    "BFS"
+  ]
+},
+
+{
+  q: "15. What is the worst-case time complexity of generating all subsets of n elements?",
+  opts: [
+    "O(n)",
+    "O(n²)",
+    "O(2^n)",
+    "O(log n)"
+  ]
+}
+
+]; %>
+
+             <% const arr = [] %>
+
+             <% questions.forEach((item , i) =>{ %>
+
+              <div class="question">
+                <h3><%=item.q %></h3>
+                <% item.opts.forEach((opt , j) => { %>
+                       <label>
+                         <input type ="radio" name ="q<%= i + 1 %>" value ="<%= opt %>" class ="q<%= i+1 %>" required>
+                         <%= opt %>
+                       </label>
+               <% }) %>
+              </div>
+             <% })%>
+
+             <button type = "submit" class="btn8-quiz" >Submit Quiz</button>
+
+          </form>
+
+       </div>
+     </div>
+ <script src ="/script/backtracking.js"></script>
+
+
+</body>
+</html>

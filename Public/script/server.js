@@ -58,14 +58,11 @@ app.get('/profile', async (req, res) => {
 
 });
 
-
 app.get('/logout',(req,res)=>{
    req.session.destroy(()=>{
       res.redirect('/login');
    });
 });
-
-
 
 app.post('/submit-sign-up', async (req, res) => {
   const { FullName, Email, Password } = req.body;
@@ -137,7 +134,6 @@ app.post('/submit_login', async (req, res) => {
   }
 });
 
-
 app.get('/array_quiz',(req,res)=>{
          res.render('array_quiz');
 });
@@ -160,7 +156,62 @@ app.get('/tree_quiz',(req,res)=>{
 
 app.get('/graph_quiz',(req,res)=>{
   res.render('graph');
-})
+});
+
+app.get('/recursion_quiz',(req,res)=>{
+    res.render('recursion');
+});
+
+app.get('/backtracking_quiz',(req,res)=>{
+   res.render('backtracking');
+});
+app.get('/dp_quiz',(req,res)=>{
+   res.render('dp');
+});
+
+app.get('/greedy_quiz',(req,res)=>{
+  res.render('greedy_quiz');
+});
+
+app.get('/sl_quiz',(req,res)=>{
+   res.render('sliding_window_quiz');
+});
+
+app.get('/hash_quiz',(req,res)=>{
+   res.render('hash_quiz');
+});
+
+app.get('/oops_quiz',(req,res)=>{
+   res.render('oops_quiz');
+});
+
+app.get('/dbms_quiz',(req,res)=>{
+   res.render('dbms_quiz');
+});
+
+app.get('/os_quiz',(req,res)=>{
+  res.render('os_quiz');
+});
+
+app.get('/cn_quiz',(req,res)=>{
+   res.render('cn_quiz');
+});
+
+app.get('/sd_quiz',(req,res)=>{
+   res.render('sd_quiz');
+});
+
+app.get('/aptitude_quiz',(req,res)=>{
+  res.render('aptitude_quiz');
+});
+
+app.get('/patterns_quiz',(req,res)=>{
+   res.render('patterns_quiz');
+});
+
+app.get('/cs_quiz',(req,res)=>{
+  res.render('cs_quiz');
+});
 
 app.post('/submit-array-quiz', async (req, res) => {
   try {
@@ -198,7 +249,6 @@ app.post('/submit-array-quiz', async (req, res) => {
     res.status(500).json({ success: false });
   }
 });
-
 
 app.post('/submit-linked-list-quiz', async (req,res)=>{
 
@@ -273,7 +323,6 @@ app.post('/submit-stack-quiz' , async(req,res)=>{
   }
 });
 
-
 app.post('/submit-queue-quiz',async (req,res)=>{
 
   try{
@@ -315,7 +364,6 @@ app.post('/submit-queue-quiz',async (req,res)=>{
          res.status(500).json({ success: false });
   }
 });
-
 
 app.post('/submit-tree-quiz',async(req,res)=>{
 
@@ -402,6 +450,361 @@ app.post('/submit-graph-quiz',async(req,res)=>{
 
 
 });
+
+app.post('/submit-recursion-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+app.post('/submit-backtracking-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+app.post('/submit-dp-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+app.post('/submit-greedy-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+app.post('/submit-sl-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+app.post('/submit-oops-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+app.post('/submit-hash-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+app.post('/submit-dbms-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+
+
 
 const PORT = 3001;
 app.listen(PORT , ()=>{

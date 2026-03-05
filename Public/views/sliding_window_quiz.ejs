@@ -1,0 +1,336 @@
+!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliding Window Quiz</title>
+    <link rel="stylesheet" href="/style/nav.css">
+<style>
+     * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Adjust content below navbar */
+.content-wrapper {
+  margin-top: 90px; /* navbar height */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px; /* prevents overflow on small screens */
+  box-sizing: border-box;
+}
+
+.quiz_container {
+  background: #ffffff15;
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px; /* keeps container inside screen */
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 60px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.question {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.question:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.question h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #f3f3f3;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  accent-color: #00ffbf;
+  margin-right: 8px;
+}
+
+button {
+  background: #00ffc8;
+  border: none;
+  color: #333;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00bfa5;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 900px) {
+  .quiz_container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .question h3 {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Ensure navbar links stay inside screen */
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .quiz_container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .question h3 {
+    font-size: 0.95rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+
+</head>
+<body>
+
+    <%- include('partials/nav') %>
+    
+     <div class ="content-wrapper">
+       <div class="quiz_container">
+         <h1>Sliding Window Quiz</h1>
+
+          <form  action="/submit-sl-quiz" method="POST" id="slForm">
+
+           
+
+<% const questions = [
+
+{
+  q: "1. What is the main idea behind Sliding Window technique?",
+  opts: [
+    "Divide array into halves",
+    "Use two pointers to maintain a window range",
+    "Use recursion",
+    "Use dynamic programming table"
+  ]
+},
+
+{
+  q: "2. Sliding Window is mainly used for problems involving?",
+  opts: [
+    "Trees",
+    "Graphs",
+    "Arrays or Strings",
+    "Linked List only"
+  ]
+},
+
+{
+  q: "3. What is the time complexity of fixed-size sliding window?",
+  opts: [
+    "O(n)",
+    "O(n²)",
+    "O(log n)",
+    "O(n log n)"
+  ]
+},
+
+{
+  q: "4. Which problem is solved using variable size sliding window?",
+  opts: [
+    "Maximum Sum Subarray of size K",
+    "Longest Substring Without Repeating Characters",
+    "Merge Sort",
+    "Binary Search"
+  ]
+},
+
+{
+  q: "5. What condition is required to shrink the window?",
+  opts: [
+    "When constraint is violated",
+    "Always shrink after every step",
+    "Never shrink",
+    "Only shrink at end"
+  ]
+},
+
+{
+  q: "6. What data structure is often used in sliding window maximum problem?",
+  opts: [
+    "Stack",
+    "Queue",
+    "Deque",
+    "Heap only"
+  ]
+},
+
+{
+  q: "7. Time complexity of Sliding Window Maximum using Deque?",
+  opts: [
+    "O(n²)",
+    "O(n log n)",
+    "O(n)",
+    "O(log n)"
+  ]
+},
+
+{
+  q: "8. Which technique is used in 'Longest Repeating Character Replacement'?",
+  opts: [
+    "Fixed window",
+    "Variable window with frequency count",
+    "Binary Search",
+    "Recursion"
+  ]
+},
+
+{
+  q: "9. What is the brute force complexity of longest substring without repeating characters?",
+  opts: [
+    "O(n)",
+    "O(n²)",
+    "O(log n)",
+    "O(n log n)"
+  ]
+},
+
+{
+  q: "10. In minimum window substring, what do we track?",
+  opts: [
+    "Only window size",
+    "Frequency of required characters",
+    "Sorting",
+    "Stack depth"
+  ]
+},
+
+{
+  q: "11. Sliding Window is also known as?",
+  opts: [
+    "Two Pointer Technique",
+    "Divide and Conquer",
+    "Backtracking",
+    "Greedy Sorting"
+  ]
+},
+
+{
+  q: "12. When does sliding window fail?",
+  opts: [
+    "When elements are negative and condition is sum-based",
+    "When array size is small",
+    "When using recursion",
+    "Never fails"
+  ]
+},
+
+{
+  q: "13. Which problem uses Sliding Window + HashMap?",
+  opts: [
+    "Longest Substring Without Repeating Characters",
+    "DFS Traversal",
+    "Prim’s Algorithm",
+    "Topological Sort"
+  ]
+},
+
+{
+  q: "14. What is the optimized complexity of Minimum Window Substring?",
+  opts: [
+    "O(n²)",
+    "O(n)",
+    "O(n log n)",
+    "O(2^n)"
+  ]
+},
+
+{
+  q: "15. Sliding Window works best when?",
+  opts: [
+    "Problem involves contiguous subarrays/substrings",
+    "Graph traversal required",
+    "Recursion depth is high",
+    "Tree balancing required"
+  ]
+}
+
+]; %>
+
+             <% const arr = [] %>
+
+             <% questions.forEach((item , i) =>{ %>
+
+              <div class="question">
+                <h3><%=item.q %></h3>
+                <% item.opts.forEach((opt , j) => { %>
+                       <label>
+                         <input type ="radio" name ="q<%= i + 1 %>" value ="<%= opt %>" class ="q<%= i+1 %>" required>
+                         <%= opt %>
+                       </label>
+               <% }) %>
+              </div>
+             <% })%>
+
+             <button type = "submit" class="btn11-quiz" >Submit Quiz</button>
+
+          </form>
+
+       </div>
+     </div>
+ <script src ="/script/sl.js"></script>
+
+
+</body>
+</html>
