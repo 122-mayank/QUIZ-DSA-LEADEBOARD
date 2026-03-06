@@ -1,0 +1,304 @@
+!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patterns Quiz</title>
+    <link rel="stylesheet" href="/style/nav.css">
+<style>
+     * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Adjust content below navbar */
+.content-wrapper {
+  margin-top: 90px; /* navbar height */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px; /* prevents overflow on small screens */
+  box-sizing: border-box;
+}
+
+.quiz_container {
+  background: #ffffff15;
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px; /* keeps container inside screen */
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 60px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.question {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.question:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.question h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #f3f3f3;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  accent-color: #00ffbf;
+  margin-right: 8px;
+}
+
+button {
+  background: #00ffc8;
+  border: none;
+  color: #333;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00bfa5;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 900px) {
+  .quiz_container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .question h3 {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Ensure navbar links stay inside screen */
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .quiz_container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .question h3 {
+    font-size: 0.95rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+
+</head>
+<body>
+
+    <%- include('partials/nav') %>
+    
+     <div class ="content-wrapper">
+       <div class="quiz_container">
+         <h1>Patterns Quiz</h1>
+
+          <form  action="/submit-pattern-quiz" method="POST" id="patternForm">
+
+           
+<% const questions = [
+
+{
+  q: "1. What will be the output of the following code?\nfor(int i=1;i<=3;i++){ for(int j=1;j<=i;j++){ cout<<\"*\"; } cout<<endl; }",
+  opts: ["*\n**\n***",
+         "***\n**\n*",
+         "* * *",
+         "***"]
+},
+
+{
+  q: "2. How many rows will be printed by this loop?\nfor(int i=1;i<=5;i++)",
+  opts: ["4",
+         "5",
+         "6",
+         "Infinite"]
+},
+
+{
+  q: "3. Which loop is generally used for pattern printing?",
+  opts: ["Single loop",
+         "Nested loops",
+         "While only",
+         "Do-while only"]
+},
+
+{
+  q: "4. What will be the output?\nfor(int i=1;i<=3;i++){ for(int j=1;j<=3;j++){ cout<<i; }}",
+  opts: ["123",
+         "111222333",
+         "123123123",
+         "333"]
+},
+
+{
+  q: "5. What pattern does this produce?\nfor(int i=1;i<=4;i++){ for(int j=1;j<=4;j++){ cout<<\"*\"; } cout<<endl; }",
+  opts: ["Square Pattern",
+         "Triangle Pattern",
+         "Pyramid Pattern",
+         "Diamond Pattern"]
+},
+
+{
+  q: "6. What is printed when i=3 and j loop runs from 1 to i?",
+  opts: ["***",
+         "**",
+         "*",
+         "****"]
+},
+
+{
+  q: "7. Which loop controls the rows in pattern problems?",
+  opts: ["Inner loop",
+         "Outer loop",
+         "While loop",
+         "Switch"]
+},
+
+{
+  q: "8. Which loop controls the columns in pattern printing?",
+  opts: ["Outer loop",
+         "Inner loop",
+         "Do-while loop",
+         "Switch"]
+},
+
+{
+  q: "9. Which pattern is produced when stars increase then decrease?",
+  opts: ["Triangle",
+         "Diamond",
+         "Square",
+         "Rectangle"]
+},
+
+{
+  q: "10. What does the following print?\nfor(int i=1;i<=3;i++){ for(int j=1;j<=3;j++){ cout<<\"* \"; }}",
+  opts: ["3 stars",
+         "9 stars",
+         "6 stars",
+         "12 stars"]
+},
+
+{
+  q: "11. What type of pattern is this?\n1\n12\n123\n1234",
+  opts: ["Number Triangle",
+         "Star Pyramid",
+         "Diamond",
+         "Square"]
+},
+
+{
+  q: "12. What pattern is this?\n****\n***\n**\n*",
+  opts: ["Reverse Triangle",
+         "Pyramid",
+         "Square",
+         "Diamond"]
+},
+
+{
+  q: "13. What is required to print pyramid patterns?",
+  opts: ["Only one loop",
+         "Nested loops with spaces",
+         "Switch statement",
+         "Arrays"]
+},
+
+{
+  q: "14. Which variable usually represents rows?",
+  opts: ["j",
+         "k",
+         "i",
+         "n"]
+},
+
+{
+  q: "15. What is printed?\nfor(int i=1;i<=3;i++){ cout<<\"*\"; }",
+  opts: ["*",
+         "***",
+         "******",
+         "**"]
+}
+
+]; %>
+       <% const arr = [] %>
+
+             <% questions.forEach((item , i) =>{ %>
+
+              <div class="question">
+                <h3><%=item.q %></h3>
+                <% item.opts.forEach((opt , j) => { %>
+                       <label>
+                         <input type ="radio" name ="q<%= i + 1 %>" value ="<%= opt %>" class ="q<%= i+1 %>" required>
+                         <%= opt %>
+                       </label>
+               <% }) %>
+              </div>
+             <% })%>
+
+             <button type = "submit" class="btn19-quiz" >Submit Quiz</button>
+
+          </form>
+
+       </div>
+     </div>
+ <script src ="/script/patterns.js"></script>
+
+
+</body>
+</html>

@@ -24,7 +24,12 @@
 
           <!-- Circle Percentage for Quizzes -->
           <div class="progress-wrapper">
-            <canvas id="progressCircle" width="200" height="200"></canvas>
+            <canvas 
+   id="progressCircle"
+   width="200"
+   height="200"
+   data-percent="<%= user.totalMarks ? Math.round((user.totalScore / user.totalMarks) * 100) : 0 %>">
+</canvas>
             <p class="progress-text">
                <%= user.totalMarks ? Math.round((user.totalScore / user.totalMarks) * 100) : 0 %>%
             </p>
@@ -39,9 +44,23 @@
 
       <!-- Leaderboard Section -->
       <div class="leaderboard">
-        <h2 class="leaderboard-title">Leaderboard</h2>
+  <h2 class="leaderboard-title">Leaderboard</h2>
 
-      </div>
+  <ul class="leaderboard-list">
+    <% leaderboard.forEach((player, index) => { %>
+      <li>
+        <span>
+          <%= index + 1 %>. <%= player.name %>
+        </span>
+
+        <span class="score">
+          <%= player.score %>
+        </span>
+      </li>
+    <% }) %>
+  </ul>
+
+</div>
     </div>
 
     <div class="btn-container">

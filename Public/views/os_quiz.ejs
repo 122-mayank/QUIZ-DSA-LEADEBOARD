@@ -1,0 +1,304 @@
+!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operating System Quiz</title>
+    <link rel="stylesheet" href="/style/nav.css">
+<style>
+     * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Adjust content below navbar */
+.content-wrapper {
+  margin-top: 90px; /* navbar height */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px; /* prevents overflow on small screens */
+  box-sizing: border-box;
+}
+
+.quiz_container {
+  background: #ffffff15;
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px; /* keeps container inside screen */
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 60px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.question {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.question:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.question h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #f3f3f3;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  accent-color: #00ffbf;
+  margin-right: 8px;
+}
+
+button {
+  background: #00ffc8;
+  border: none;
+  color: #333;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00bfa5;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 900px) {
+  .quiz_container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .question h3 {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Ensure navbar links stay inside screen */
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .quiz_container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .question h3 {
+    font-size: 0.95rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+
+</head>
+<body>
+
+    <%- include('partials/nav') %>
+    
+     <div class ="content-wrapper">
+       <div class="quiz_container">
+         <h1>Operating System Quiz</h1>
+
+          <form  action="/submit-os-quiz" method="POST" id="osForm">
+
+           
+<% const questions = [
+
+{
+  q: "1. Which scheduling algorithm may cause starvation?",
+  opts: ["Round Robin",
+         "First Come First Serve",
+         "Shortest Job First",
+         "Multilevel Queue"]
+},
+
+{
+  q: "2. What is the main purpose of a semaphore in an operating system?",
+  opts: ["Memory allocation",
+         "Process synchronization",
+         "Disk scheduling",
+         "File management"]
+},
+
+{
+  q: "3. Which page replacement algorithm suffers from Belady’s Anomaly?",
+  opts: ["FIFO",
+         "LRU",
+         "Optimal",
+         "Clock"]
+},
+
+{
+  q: "4. Which condition is NOT required for deadlock?",
+  opts: ["Mutual Exclusion",
+         "Hold and Wait",
+         "Preemption",
+         "Circular Wait"]
+},
+
+{
+  q: "5. In Round Robin scheduling, what is the key parameter?",
+  opts: ["Burst time",
+         "Time quantum",
+         "Arrival time",
+         "Priority"]
+},
+
+{
+  q: "6. What does thrashing occur due to?",
+  opts: ["High CPU utilization",
+         "Excessive paging",
+         "Too many processes in ready queue",
+         "Large disk space"]
+},
+
+{
+  q: "7. Which scheduling algorithm gives minimum average waiting time?",
+  opts: ["FCFS",
+         "SJF",
+         "Round Robin",
+         "Priority"]
+},
+
+{
+  q: "8. What is the main advantage of multiprogramming?",
+  opts: ["Reduce memory usage",
+         "Increase CPU utilization",
+         "Increase disk speed",
+         "Improve file security"]
+},
+
+{
+  q: "9. Which technique avoids deadlock by allocating resources safely?",
+  opts: ["Banker's Algorithm",
+         "Round Robin",
+         "FIFO Scheduling",
+         "LRU"]
+},
+
+{
+  q: "10. Which page replacement algorithm requires future knowledge of references?",
+  opts: ["FIFO",
+         "LRU",
+         "Optimal",
+         "Clock"]
+},
+
+{
+  q: "11. What is the role of the kernel in an operating system?",
+  opts: ["User interface",
+         "Resource management",
+         "Application development",
+         "Database management"]
+},
+
+{
+  q: "12. Which memory management technique divides memory into fixed partitions?",
+  opts: ["Paging",
+         "Segmentation",
+         "Fixed Partitioning",
+         "Virtual Memory"]
+},
+
+{
+  q: "13. What happens during context switching?",
+  opts: ["Switching between memory locations",
+         "Saving and loading process state",
+         "Changing disk blocks",
+         "Switching user accounts"]
+},
+
+{
+  q: "14. Which disk scheduling algorithm moves the disk arm in one direction only?",
+  opts: ["SCAN",
+         "C-SCAN",
+         "SSTF",
+         "FCFS"]
+},
+
+{
+  q: "15. What is the main purpose of virtual memory?",
+  opts: ["Increase CPU speed",
+         "Allow programs larger than physical memory",
+         "Increase disk performance",
+         "Improve graphics"]
+}
+
+]; %>
+             <% const arr = [] %>
+
+             <% questions.forEach((item , i) =>{ %>
+
+              <div class="question">
+                <h3><%=item.q %></h3>
+                <% item.opts.forEach((opt , j) => { %>
+                       <label>
+                         <input type ="radio" name ="q<%= i + 1 %>" value ="<%= opt %>" class ="q<%= i+1 %>" required>
+                         <%= opt %>
+                       </label>
+               <% }) %>
+              </div>
+             <% })%>
+
+             <button type = "submit" class="btn15-quiz" >Submit Quiz</button>
+
+          </form>
+
+       </div>
+     </div>
+ <script src ="/script/os.js"></script>
+
+
+</body>
+</html>

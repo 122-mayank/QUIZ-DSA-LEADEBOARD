@@ -52,8 +52,36 @@ app.get('/profile', async (req, res) => {
   const snap = await userRef.once("value");
   const userData = snap.val();
 
+  // 🔹 Get all users for leaderboard
+  const allUsersSnap = await db.ref("users").once("value");
+  const allUsers = allUsersSnap.val();
+
+  let leaderboard = [];
+
+  for (let key in allUsers) {
+
+    const u = allUsers[key];
+
+    const percentage = u.totalMarks
+      ? Math.round((u.totalScore / u.totalMarks) * 100)
+      : 0;
+
+    leaderboard.push({
+      name: u.name,
+      score: u.totalScore || 0,
+      percentage
+    });
+  }
+
+  // 🔹 Sort highest score first
+  leaderboard.sort((a, b) => b.score - a.score);
+
+  // 🔹 Top 10 only
+  leaderboard = leaderboard.slice(0, 10);
+
   res.render('profile', {
-    user: userData
+    user: userData,
+    leaderboard
   });
 
 });
@@ -802,6 +830,273 @@ app.post('/submit-dbms-quiz',async(req,res)=>{
 
 
 });
+
+app.post('/submit-os-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+app.post('/submit-cn-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+app.post('/submit-sd-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+app.post('/submit-apt-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+app.post('/submit-pattern-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+app.post('/submit-cs-quiz',async(req,res)=>{
+
+  try{
+
+       if(!req.session.user){
+         return res.json({success:true , guest:true});
+       }
+
+       const {score} = req.body;
+
+       const emailKey = req.session.user.email.replace('.',',');
+       console.log("Email Key: " ,emailKey);
+
+       const userRef =  db.ref("users").child(emailKey);
+       console.log(userRef);
+
+       const snap = await userRef.once("value");
+       console.log(snap);
+
+       const userData = snap.val();
+       console.log(userData);
+
+       const prevScore = userData.totalScore || 0;
+       const prevQuiz = userData.totalQuiz || 0;
+       const prevMarks = userData.totalMarks || 0;
+
+       await userRef.update({
+          
+           totalQuiz: prevQuiz + 1,
+           totalScore: prevScore + score,
+           totalMarks: prevMarks + 15
+
+       });
+      
+      res.json({ success: true , guest: false });
+
+  }catch(error){
+         console.error(error);
+         res.status(500).json({ success: false });
+  }
+
+
+});
+
+
+
 
 
 

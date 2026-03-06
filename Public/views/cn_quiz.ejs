@@ -1,0 +1,304 @@
+!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Network Quiz</title>
+    <link rel="stylesheet" href="/style/nav.css">
+<style>
+     * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Adjust content below navbar */
+.content-wrapper {
+  margin-top: 90px; /* navbar height */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px; /* prevents overflow on small screens */
+  box-sizing: border-box;
+}
+
+.quiz_container {
+  background: #ffffff15;
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px; /* keeps container inside screen */
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 60px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.question {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.question:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.question h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #f3f3f3;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  accent-color: #00ffbf;
+  margin-right: 8px;
+}
+
+button {
+  background: #00ffc8;
+  border: none;
+  color: #333;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00bfa5;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 900px) {
+  .quiz_container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .question h3 {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Ensure navbar links stay inside screen */
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .quiz_container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .question h3 {
+    font-size: 0.95rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+
+</head>
+<body>
+
+    <%- include('partials/nav') %>
+    
+     <div class ="content-wrapper">
+       <div class="quiz_container">
+         <h1>Computer Network Quiz</h1>
+
+          <form  action="/submit-cn-quiz" method="POST" id="cnForm">
+
+           
+<% const questions = [
+
+{
+  q: "1. Which layer of the OSI model is responsible for routing?",
+  opts: ["Transport Layer",
+         "Network Layer",
+         "Data Link Layer",
+         "Session Layer"]
+},
+
+{
+  q: "2. What is the main purpose of the TCP protocol?",
+  opts: ["Provide reliable communication",
+         "Provide faster communication without reliability",
+         "Assign IP addresses",
+         "Control network hardware"]
+},
+
+{
+  q: "3. Which protocol is used to convert domain names into IP addresses?",
+  opts: ["HTTP",
+         "DNS",
+         "FTP",
+         "SMTP"]
+},
+
+{
+  q: "4. Which device operates at the Data Link Layer?",
+  opts: ["Router",
+         "Switch",
+         "Gateway",
+         "Repeater"]
+},
+
+{
+  q: "5. What does the ARP protocol do?",
+  opts: ["Maps IP address to MAC address",
+         "Maps MAC address to IP address",
+         "Assigns IP addresses",
+         "Transfers files"]
+},
+
+{
+  q: "6. Which topology connects all devices to a central hub?",
+  opts: ["Bus",
+         "Star",
+         "Ring",
+         "Mesh"]
+},
+
+{
+  q: "7. Which protocol is used to send emails?",
+  opts: ["HTTP",
+         "FTP",
+         "SMTP",
+         "SNMP"]
+},
+
+{
+  q: "8. Which layer of the OSI model handles encryption and compression?",
+  opts: ["Application Layer",
+         "Presentation Layer",
+         "Transport Layer",
+         "Session Layer"]
+},
+
+{
+  q: "9. What is the main function of a router?",
+  opts: ["Amplify signals",
+         "Forward packets between networks",
+         "Store data",
+         "Convert digital to analog"]
+},
+
+{
+  q: "10. Which protocol is used for secure web communication?",
+  opts: ["HTTP",
+         "FTP",
+         "HTTPS",
+         "SMTP"]
+},
+
+{
+  q: "11. What is the default port number for HTTP?",
+  opts: ["21",
+         "25",
+         "80",
+         "443"]
+},
+
+{
+  q: "12. Which multiple access method is used in Ethernet?",
+  opts: ["CSMA/CD",
+         "Token Passing",
+         "FDMA",
+         "TDMA"]
+},
+
+{
+  q: "13. What does NAT stand for?",
+  opts: ["Network Address Translation",
+         "Network Access Technology",
+         "Node Address Transfer",
+         "Network Allocation Table"]
+},
+
+{
+  q: "14. Which protocol is used to automatically assign IP addresses?",
+  opts: ["DNS",
+         "DHCP",
+         "ARP",
+         "ICMP"]
+},
+
+{
+  q: "15. Which layer ensures end-to-end communication between hosts?",
+  opts: ["Network Layer",
+         "Transport Layer",
+         "Data Link Layer",
+         "Session Layer"]
+}
+
+]; %>
+             <% const arr = [] %>
+
+             <% questions.forEach((item , i) =>{ %>
+
+              <div class="question">
+                <h3><%=item.q %></h3>
+                <% item.opts.forEach((opt , j) => { %>
+                       <label>
+                         <input type ="radio" name ="q<%= i + 1 %>" value ="<%= opt %>" class ="q<%= i+1 %>" required>
+                         <%= opt %>
+                       </label>
+               <% }) %>
+              </div>
+             <% })%>
+
+             <button type = "submit" class="btn16-quiz" >Submit Quiz</button>
+
+          </form>
+
+       </div>
+     </div>
+ <script src ="/script/cn.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptitude Quiz</title>
+    <link rel="stylesheet" href="/style/nav.css">
+<style>
+     * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #74ABE2, #5563DE);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Adjust content below navbar */
+.content-wrapper {
+  margin-top: 90px; /* navbar height */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 15px; /* prevents overflow on small screens */
+  box-sizing: border-box;
+}
+
+.quiz_container {
+  background: #ffffff15;
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 800px; /* keeps container inside screen */
+  padding: 30px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  margin-bottom: 60px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #fff;
+  font-size: 2rem;
+}
+
+.question {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.question:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.question h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #f3f3f3;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+input[type="radio"] {
+  accent-color: #00ffbf;
+  margin-right: 8px;
+}
+
+button {
+  background: #00ffc8;
+  border: none;
+  color: #333;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  display: block;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #00bfa5;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 900px) {
+  .quiz_container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  .question h3 {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Ensure navbar links stay inside screen */
+  .content-wrapper {
+    padding: 0 10px;
+  }
+
+  .quiz_container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .question h3 {
+    font-size: 0.95rem;
+  }
+
+  label {
+    font-size: 0.9rem;
+  }
+}
+</style>
+
+
+</head>
+<body>
+
+    <%- include('partials/nav') %>
+    
+     <div class ="content-wrapper">
+       <div class="quiz_container">
+         <h1>Aptitude Quiz</h1>
+
+          <form  action="/submit-apt-quiz" method="POST" id="aptForm">
+
+           
+<% const questions = [
+
+{
+  q: "1. If the ratio of two numbers is 3:5 and their sum is 64, what is the larger number?",
+  opts: ["24",
+         "40",
+         "36",
+         "48"]
+},
+
+{
+  q: "2. A train travels 60 km in 45 minutes. What is its speed in km/h?",
+  opts: ["70 km/h",
+         "75 km/h",
+         "80 km/h",
+         "90 km/h"]
+},
+
+{
+  q: "3. What will be the compound interest on ₹1000 at 10% per annum for 2 years?",
+  opts: ["₹200",
+         "₹210",
+         "₹220",
+         "₹230"]
+},
+
+{
+  q: "4. If 12 workers can complete a work in 10 days, how many days will 8 workers take?",
+  opts: ["12 days",
+         "15 days",
+         "18 days",
+         "20 days"]
+},
+
+{
+  q: "5. Find the missing number: 2, 6, 12, 20, ?",
+  opts: ["28",
+         "30",
+         "32",
+         "36"]
+},
+
+{
+  q: "6. A number is increased by 20% and then decreased by 20%. What is the net change?",
+  opts: ["No change",
+         "4% decrease",
+         "4% increase",
+         "8% decrease"]
+},
+
+{
+  q: "7. If the average of 5 numbers is 18, what is their total sum?",
+  opts: ["80",
+         "85",
+         "90",
+         "95"]
+},
+
+{
+  q: "8. A shopkeeper gives 10% discount on an item priced at ₹500. What is the selling price?",
+  opts: ["₹450",
+         "₹460",
+         "₹470",
+         "₹480"]
+},
+
+{
+  q: "9. What is the next number in the series: 3, 9, 27, 81, ?",
+  opts: ["162",
+         "243",
+         "324",
+         "256"]
+},
+
+{
+  q: "10. If a car travels 150 km using 10 liters of fuel, what is the mileage?",
+  opts: ["10 km/l",
+         "12 km/l",
+         "15 km/l",
+         "18 km/l"]
+},
+
+{
+  q: "11. If the perimeter of a square is 40 cm, what is its area?",
+  opts: ["100",
+         "80",
+         "64",
+         "120"]
+},
+
+{
+  q: "12. Find the odd one out: 4, 9, 16, 25, 30",
+  opts: ["4",
+         "9",
+         "25",
+         "30"]
+},
+
+{
+  q: "13. If the simple interest on ₹5000 for 2 years at 5% per annum is?",
+  opts: ["₹400",
+         "₹500",
+         "₹600",
+         "₹700"]
+},
+
+{
+  q: "14. Find the missing term: 5, 10, 20, 40, ?",
+  opts: ["60",
+         "70",
+         "80",
+         "90"]
+},
+
+{
+  q: "15. A clock shows 3:15. What is the angle between the hour and minute hand?",
+  opts: ["0°",
+         "7.5°",
+         "15°",
+         "30°"]
+}
+
+]; %>
+       <% const arr = [] %>
+
+             <% questions.forEach((item , i) =>{ %>
+
+              <div class="question">
+                <h3><%=item.q %></h3>
+                <% item.opts.forEach((opt , j) => { %>
+                       <label>
+                         <input type ="radio" name ="q<%= i + 1 %>" value ="<%= opt %>" class ="q<%= i+1 %>" required>
+                         <%= opt %>
+                       </label>
+               <% }) %>
+              </div>
+             <% })%>
+
+             <button type = "submit" class="btn18-quiz" >Submit Quiz</button>
+
+          </form>
+
+       </div>
+     </div>
+ <script src ="/script/apt.js"></script>
+
+
+</body>
+</html>

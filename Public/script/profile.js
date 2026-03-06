@@ -1,24 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  const scoreText = document.getElementById('high-score').textContent;
-  const [score, total] = scoreText.split('/').map(Number);
+  const canvas = document.getElementById("progressCircle");
 
-  const percent = total === 0 ? 0 : Math.round((score / total) * 100);
+  const percent = parseInt(canvas.dataset.percent) || 0;
 
-  const ctx = document.getElementById('progressCircle');
+  const ctx = canvas.getContext("2d");
 
   new Chart(ctx, {
-    type: 'doughnut',
+    type: "doughnut",
     data: {
       datasets: [{
         data: [percent, 100 - percent],
+        backgroundColor: ["#6b46c1", "#e9d5ff"],
         borderWidth: 0
       }]
     },
     options: {
-      cutout: '75%',
+      cutout: "75%",
       plugins: {
-        legend: { display: false }
+        legend: { display: false },
+        tooltip: { enabled: false }
       }
     }
   });
